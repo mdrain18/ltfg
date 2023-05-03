@@ -85,12 +85,12 @@ public class DataSourceConfig {
     @Bean
     public DataSource sqliteDataSource() throws Exception {
 
-        // Delete the game.db file if it's there
-        fileService.deleteFileInFileSystemIfExists(this.sqliteDBPath);
-
-        // Copy the input stream (game.db) source/main/resources to the tmp directory
-        InputStream inputStream = this.getClass().getResourceAsStream("/sqliteDBs/game.db");
-        fileService.addFileToRegularFilesystem(inputStream, this.sqliteDBPath);
+//        // Delete the game.db file if it's there
+//        fileService.deleteFileInFileSystemIfExists(this.sqliteDBPath);
+//
+//        // Copy the input stream (game.db) source/main/resources to the tmp directory
+//        InputStream inputStream = this.getClass().getResourceAsStream("/sqliteDBs/game.db");
+//        fileService.addFileToRegularFilesystem(inputStream, this.sqliteDBPath);
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
