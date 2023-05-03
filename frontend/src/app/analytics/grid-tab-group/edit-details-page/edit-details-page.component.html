@@ -1,0 +1,144 @@
+<div class="page-container">
+
+  <div fxFlexFill fxLayout="column">
+
+    <div fxLayout="column" fxLayoutAlign="start stretch" fxFlexFill>
+
+      <!-- 1st Row is here -->
+      <div fxFlex="none" fxLayout="row" fxLayoutGap="0">
+
+        <!-- Left Side of the Top Row -->
+        <div fxFlex fxLayoutAlign="left center" fxLayout="row" fxLayoutGap="0">
+
+          <div fxFlex fxLayout="column">
+            <!-- Page Title -->
+            <h1 class="mat-h1" style="margin-bottom: 0; padding-bottom: 0">Edit Report {{this.reportId}}</h1>
+
+            <!-- Bread Crumbs -->
+            <div class="breadcrumbs" style="padding-left: 20px">
+              <a class="breadcrumbs" (click)="this.router.navigate([constants.GRID_TAB_GROUP_ROUTE, 1])" title="Critical Reports">Critical Reports</a>  >
+              <span class="breadcrumbs_current_page">Edit Report #{{this.reportId}}</span>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- Right Side of the Top Row -->
+        <div fxFlex fxLayoutAlign="end start">
+          <!-- Save Button -->
+          <button type="button" mat-raised-button color="primary">Save</button>
+        </div>
+
+      </div>  <!-- End of 1st row -->
+
+
+
+      <!-- 2nd Row is here -->
+      <div fxFlex="20px" fxLayout="row">
+        <!-- Empty Vertical Spacer -->
+      </div>
+
+
+      <!-- 3rd Row is here -->
+      <div fxFlex  fxLayout="column" fxLayoutGap="0">
+
+        <!-- This Row is fixed with its own scroll bar so that the save buttons are **ALWAYS VISIBLE AT THE TOP** -->
+        <div fxFlex="calc(100vh - 155px)" style="overflow: auto;">
+
+          <form [formGroup]="this.myForm" autocomplete=off novalidate>
+
+            <mat-card class="mat-elevation-z4">
+              <mat-card-content>
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 1 -->
+                  <mat-label>Enter Text Field 1</mat-label>
+                  <input matInput formControlName="textField1" aria-label="text field 1" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 2 -->
+                  <mat-label>Enter Text Field 1</mat-label>
+                  <input matInput formControlName="textField2" aria-label="text field 2" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 3 -->
+                  <mat-label>Enter Text Field 3</mat-label>
+                  <input matInput formControlName="textField3" aria-label="text field 3" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 4 -->
+                  <mat-label>Enter Text Field 4</mat-label>
+                  <input matInput formControlName="textField4" aria-label="text field 4" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 5 -->
+                  <mat-label>Enter Text Field 5</mat-label>
+                  <input matInput formControlName="textField5" aria-label="text field 5" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 6 -->
+                  <mat-label>Enter Text Field 6</mat-label>
+                  <input matInput formControlName="textField6" aria-label="text field 6" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 7 -->
+                  <mat-label>Enter Text Field 7</mat-label>
+                  <input matInput formControlName="textField7" aria-label="text field 7" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 8 -->
+                  <mat-label>Enter Text Field 8</mat-label>
+                  <input matInput formControlName="textField8" aria-label="text field 8" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 9 -->
+                  <mat-label>Enter Text Field 9</mat-label>
+                  <input matInput formControlName="textField9" aria-label="text field 9" />
+                </mat-form-field>
+
+
+                <mat-form-field style="display: block;">
+                  <!-- Text Field 10 -->
+                  <mat-label>Enter Text Field 10</mat-label>
+                  <input matInput formControlName="textField10" aria-label="text field 10" />
+                </mat-form-field>
+
+
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <!-- Save Button -->
+                  <button type="button" mat-raised-button color="primary">Save</button>
+                </div>
+
+
+              </mat-card-content>
+            </mat-card>
+          </form>
+
+
+        </div>   <!-- End of the fixed area -->
+
+
+      </div> <!-- End of 3rd row -->
+
+    </div> <!-- End of Angular flex column -->
+
+  </div>  <!-- End of Angular flex column -->
+
+</div>  <!-- End of page container -->

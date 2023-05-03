@@ -1,0 +1,202 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_ngram_analyzer": {
+          "tokenizer": "my_ngram_tokenizer",
+          "filter": [
+            "lowercase"
+          ]
+        }
+      },
+      "tokenizer": {
+        "my_ngram_tokenizer": {
+          "type": "ngram",
+          "min_gram": "1",
+          "max_gram": "25",
+          "token_chars": []
+        }
+      },
+      "normalizer": {
+        "case_insensitive_normalizer": {
+          "type": "custom",
+          "char_filter": [],
+          "filter": [
+            "lowercase",
+            "asciifolding"
+          ]
+        }
+      }
+    },
+    "max_result_window": 500000,
+    "refresh_interval": "1s",
+    "max_ngram_diff": "25"
+  },
+  "mappings": {
+    "dynamic": "true",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "ignore_malformed": false,
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "platform_id": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "character_name": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "level": {
+        "type": "integer",
+        "ignore_malformed": false,
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "created_at": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "last_login_date": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "clan_name": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "game_name": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "time_played": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      },
+      "is_new": {
+        "type": "text",
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          },
+          "sort": {
+            "type": "keyword",
+            "normalizer": "case_insensitive_normalizer"
+          },
+          "filtered": {
+            "type": "text",
+            "analyzer": "my_ngram_analyzer"
+          }
+        }
+      }
+    }
+  }
+}

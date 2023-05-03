@@ -1,0 +1,136 @@
+:host ::ng-deep .ag-body-viewport.ag-layout-normal {
+  /* Force ag-grid to show a vertical scrollbar all of the time to avoid the "bump" */
+  /* The bump appears when the user searches for something that has no matches, then vertical scrollbar disappears and the columns move over */
+  overflow-y: scroll;
+}
+
+
+/**********   L I G H T      M O D E  **********/
+.light .searchBoxValid  {
+  width: 250px;                /* Set the width of the search box */
+  padding: 6px 0 6px 8px;      /* The last padding value determines how far indented the textbox appears in the wrapper */
+  background-color: #dcdcdc;   /* light white color */
+  border: 0;
+
+  /* Remove the outline that appears when clicking in textbox */
+  outline: none;
+
+  margin-left: 3px;   /* Push the search box to the right inside the wrapper */
+}
+
+
+.light .searchBoxInvalid  {
+  width: 250px;            /* Set the width of the search box */
+  padding: 6px 0 6px 8px;
+  background-color: red;   /* light white color */
+  color: white;
+  caret-color: white;
+  border: 0;
+
+  /* Remove the outline that appears when clicking in textbox */
+  outline: none;
+
+  margin-left: 3px;   /* Push the search box to the right inside the wrapper */
+}
+
+
+.light .searchBoxWrapperValid  {
+  background-color: #dcdcdc;
+  border-radius: 9px;      /* Controls the rounded corners */
+  border: 0;
+
+  /* Center the search box and the icon */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.light .searchBoxWrapperInvalid {
+  background-color: red;
+  color: white;
+  border-radius: 9px;      /* Controls the rounded corners */
+  border: 0;
+
+  /* Center the search box and the icon */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.light .searchBoxIcon {
+  color: black;
+  padding: 6px 6px 6px 1px;
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+}
+
+
+
+
+/**********   D A R K       M O D E  **********/
+.dark .searchBoxValid {
+  width: 250px;                   /* Set the width of the search box */
+  padding: 6px 0 6px 8px;         /* The last padding value determines how far indented the textbox appears in the wrapper */
+  background-color: transparent;  /* The searchboxWrapper sets the background-color */
+  color: white;
+  caret-color: white;
+  border: 0;
+
+  /* Remove the outline that appears when clicking in textbox */
+  outline: none;
+
+  margin-left: 3px;   /* Push the search box to the right inside the wrapper */
+}
+
+
+.dark .searchBoxInvalid {
+  width: 250px;            /* Set the width of the search box */
+  padding: 6px 0 6px 8px;
+  background-color: red;   /* invalid background color */
+  color: white;
+  caret-color: white;
+  border: 0;
+
+  /* Remove the outline that appears when clicking in textbox */
+  outline: none;
+
+  margin-left: 3px;   /* Push the search box to the right inside the wrapper */
+}
+
+
+.dark .searchBoxWrapperValid {
+  background-color: #111111;
+  caret-color: white;
+  border-radius: 9px;      /* Controls the rounded corners */
+  border: 0;
+
+  /* Center the search box and the icon */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.dark .searchBoxWrapperInvalid {
+  background-color: red;
+  caret-color: white;
+  border-radius: 9px;      /* Controls the rounded corners */
+  border: 0;
+
+  /* Center the search box and the icon */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+
+.dark .searchBoxIcon {
+  color: #dcdcdc;
+  padding: 6px 6px 6px 10px;
+  cursor: pointer;
+  border: 0;
+  background-color: transparent;
+}

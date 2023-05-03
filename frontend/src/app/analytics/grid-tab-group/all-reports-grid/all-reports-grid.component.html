@@ -1,0 +1,59 @@
+<div style="margin-top: 25px">
+  <div fxFlex fxLayout="row">
+    <div fxFlex fxLayoutAlign="left end" fxLayout="row" fxLayoutGap="0">
+      <!-- Left side of the button row -->
+      <button mat-stroked-button type="button" color="primary" title="Reset Grid" aria-label="Reset Grid" (click)="this.resetGrid()">Reset</button>
+    </div>
+
+    <!-- Center of the "button row"  -->
+    <div fxFlex fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="0">
+
+      <div [ngClass]="{   'light':   this.currentTheme.isLightMode == true,
+                             'dark':    this.currentTheme.isLightMode == false
+                }">
+
+        <div   [ngClass]="{   'light searchBoxWrapperValid   fa-border':  this.isValidQuery == true,
+                              'dark searchBoxWrapperInvalid fa-border':  this.isValidQuery == false }">
+
+          <!-- Search Box -->
+          <input matInput type="text"  #searchBox [(ngModel)]="this.rawSearchQuery" (keyup.enter)="this.runSearch()"
+                 [ngClass]="{   'searchBoxValid':  this.isValidQuery == true,
+                                'searchBoxInvalid':   this.isValidQuery == false } "
+                 placeholder="Enter Criteria..."
+                 autocomplete="off"
+                 aria-label="search box" />
+
+          <!-- Search Icon -->
+          <span class="searchBoxIcon" (click)="this.runSearch()">
+                  <i class="fa fa-search"></i>
+                </span>
+        </div>
+
+      </div>
+    </div>
+
+    <div fxFlex fxLayoutAlign="end end" fxLayout="row" fxLayoutGap="0">
+      <!-- Right side of the button row -->
+      <b>{{this.totalMatches | number }} matches</b>
+    </div>
+  </div>
+</div>
+
+<!-- Set the grid to use the entire height (except for the height of the header and page title) -->
+<div style="height: calc(100vh - 265px); margin-top: 5px;">
+
+  <!-- Angular Grid:  NOTE: Angular flex layout does not work with ag-grid-angular -->
+  <ag-grid-angular
+    style="width: 100%; height: 100%;"
+    [ngClass]="{   'ag-theme-alpine':       this.currentTheme.isLightMode == true,
+                   'ag-theme-alpine-dark':  this.currentTheme.isLightMode == false
+              }"
+    [gridOptions]="this.gridOptions"
+    [defaultColDef]="this.defaultColDefs"
+    [columnDefs]="this.columnDefs"
+    [frameworkComponents]="this.frameworkComponents"
+    (firstDataRendered)="this.firstDataRendered()"
+    (gridReady)="this.onGridReady($event)">
+  </ag-grid-angular>
+
+</div>

@@ -1,0 +1,57 @@
+Steps to install and start PostgreSQL as a service on a CentOS 7 EC2 instance:
+
+    - Update the package manager:
+        sudo yum update -y
+    - Install PostgreSQL and its dependencies:
+        sudo yum install postgresql-server postgresql-contrib -y
+    - Initialize the PostgreSQL database:
+        sudo postgresql-setup initdb
+    - Start the PostgreSQL service:
+        sudo systemctl start postgresql
+    - Enable the PostgreSQL service to start automatically on boot:
+        sudo systemctl enable postgresql
+    - Verify that PostgreSQL is running:
+        sudo systemctl status postgresql
+        * This command should show you a status of Active: active (running)
+
+To install Java 1.8 on your CentOS 7 EC2 instance, you can follow these steps:
+
+    - Update the package manager:
+        sudo yum update -y
+    - Add the Java 8 repository:
+        sudo yum install -y java-1.8.0-openjdk
+    - Verify that Java 8 is installed:
+        java -version
+        * This command should display the version of Java 8 that you installed.
+
+To install firewalld on your CentOS 7 EC2 instance, you can follow these steps:
+
+    - Update the package manager:
+        sudo yum update -y
+    - Install firewalld
+        sudo yum install firewalld
+    - Turn on the service
+        sudo systemctl start firewalld
+    - **Must do** open up SSH port to connect to your instance
+        sudo firewall-cmd --permanent --add-service=ssh
+    - Allow port 80 and 8080 traffic
+        sudo firewall-cmd --permanent --add-service=http
+    - Allow port 443
+        sudo firewall-cmd --permanent --add-service=https
+    - Reload the firewall configurations
+        sudo firewall-cmd --reload
+    - Enable the configurations **Make sure you have SSH open**
+        sudo systemctl enable firewalld
+
+**NOTE: There is another how to which walks you through a manual install**
+To install HTTPD on your CentOS 7 EC2 instance, you can follow these steps:
+
+    - Update the package manager:
+        sudo yum update -y
+    - Install the Apache HTTPD
+        sudo yum install httpd
+    - Start your service
+        sudo systemctl start httpd
+    - Make sure your service started
+        sudo systemctl status httpd
+

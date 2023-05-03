@@ -1,0 +1,59 @@
+<div class="page-container">
+
+  <div fxFlexFill fxLayout="column">
+
+    <div fxFlex fxLayout="row" fxLayoutGap="0">
+
+      <!-- Left Side of the Top Row -->
+      <div fxFlex fxLayoutAlign="left center" fxLayout="row" fxLayoutGap="0">
+
+        <div fxLayout="column">
+          <div>
+            <!-- Page Title -->
+            <h1 class="mat-h1 nowrap" style="margin-bottom: 0">USA Map Page</h1>
+          </div>
+
+          <div class="breadcrumbs" style="margin-left: 20px">
+            <!-- Bread Crumbs -->
+            <a class="breadcrumbs_current_page" [routerLink]="'/' + constants.DASHBOARD_LAYOUT_ROUTE" title="Dashboard">Dashboard</a> >
+            <span class="breadcrumbs_current_page">USA Map Page</span>
+          </div>
+
+          <!-- Divider -->
+          <div style="height: 15px"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- Right Side of the Top Row -->
+      <div fxFlex fxLayoutAlign="end center">
+
+      </div>
+
+    </div>  <!-- End of top row -->
+
+
+    <!-- Start of the second row -->
+    <div fxFlex  fxLayout="column" fxLayoutGap="0">
+
+      <mat-card class="mat-elevation-z4">
+        <mat-card-content>
+
+          <!-- Setup a wrapper div that uses the entire available height (total height - 180px) -->
+          <div style="height: calc(100vh - 180px);">
+
+            <div style="width: 100%; height: 100%" id="usaMapPage1"  #myChart>
+            </div>
+
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+
+    </div> <!-- End of 2nd row -->
+
+  </div> <!-- End of Angular flex column -->
+
+</div>  <!-- End of grid container -->

@@ -1,0 +1,46 @@
+If you know what you are doing you can copy the below XML and paste it in your workspace file under .idea
+    It will build out the debug part. If you have problems, remove it and follow the SetupDebug guide.
+Here is the XML for the run configurations:
+
+<component name="RunManager" selected="Multirun.Full WebApp">
+    <configuration name="Angular Application" type="JavascriptDebugType" uri="http://localhost:4200" useFirstLineBreakpoints="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="Full WebApp" type="Multirun" separateTabs="false" reuseTabsWithFailures="true" startOneByOne="true" markFailedProcess="false" hideSuccessProcess="false" delayTime="9.0">
+      <runConfiguration name="Backend" type="Spring Boot" />
+      <runConfiguration name="Angular CLI Server" type="npm" />
+      <runConfiguration name="Angular Application" type="JavaScript Debug" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Backend" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="backend" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.lessons.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lessons.Application" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Angular CLI Server" type="js.build_tools.npm">
+      <package-json value="$PROJECT_DIR$/frontend/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.Angular Application" />
+      <item itemvalue="Multirun.Full WebApp" />
+      <item itemvalue="npm.Angular CLI Server" />
+      <item itemvalue="Spring Boot.Backend" />
+    </list>
+  </component>

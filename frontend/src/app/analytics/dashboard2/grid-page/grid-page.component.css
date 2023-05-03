@@ -1,0 +1,4 @@
+mat-card {
+  /* Reduce the padding around the card so we do not have a double border around the grid */
+  padding: 0;
+}

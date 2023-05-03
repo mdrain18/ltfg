@@ -1,0 +1,160 @@
+<div  style="width:200px"
+      [ngClass]="{
+            'light':   this.currentTheme.isLightMode == true,
+            'dark':    this.currentTheme.isLightMode == false
+        }">
+
+  <ng-container *ngIf="(this.userInfoObs | async) as userInfo">
+    <!-- The UserInfoObs data has come in.  So, show the navbar -->
+    <!-- NOTE:  The async-pipe for userInfo must be *inside* the outer div that hsa width of 200px.  Otherwise all of the pages are screwed-up on page load  -->
+
+    <mat-nav-list style="margin-top: 0; padding-top: 0">
+
+      <ng-container  *ngIf="userInfo.pageRoutes.get(constants.VIEW_REPORTS_ROUTE) ||
+                                  userInfo.pageRoutes.get(constants.ADD_REPORTS_ROUTE) ||
+                                  userInfo.pageRoutes.get(constants.ADD_REPORTS2_ROUTE) ||
+                                  userInfo.pageRoutes.get(constants.AUDIT_HISTORY_ROUTE) ||
+                                  userInfo.pageRoutes.get(constants.LONGVIEW_REPORT) ||
+                                  userInfo.pageRoutes.get(constants.UPLOAD_REPORT_ROUTE) ">
+        <!-- The user is authorized to see at least one of the Reports Navbar Items -->
+
+        <!-- Menu Group 1 -->
+        <div class='navHeader clickable'  (click)="toggleNavGroup(1)">
+          <i class="fa fa-file-alt navHeaderIcon"></i>
+          <span class="navHeaderTitle">Players</span>
+        </div>
+
+        <!-- Menu Group 1 Items -->
+        <div class='navGroup' [ngClass]="{'navGroupClosed': reportsNavGroupClosed == true}">
+
+          <!-- Characters Page -->
+          <mat-list-item class="navItem" [routerLink]="constants.CHARACTERS_GRID_ROUTE" routerLinkActive="active"
+                         *ngIf="userInfo.pageRoutes.get(constants.CHARACTERS_GRID_ROUTE)">
+            <a title="Characters">Characters</a>
+            <div fxFlex fxLayoutAlign="end end" >
+              <a [routerLink]="constants.CHARACTERS_GRID_ROUTE" target="_blank">
+                <i class="fas fa-external-link-alt navItemIcon" title="Open 'Characters page' a new window"></i>
+              </a>
+            </div>
+          </mat-list-item>
+
+          <!-- Clan Page -->
+          <mat-list-item class="navItem" [routerLink]="constants.CLANS_GRID_ROUTE" routerLinkActive="active"
+                         *ngIf="userInfo.pageRoutes.get(constants.CLANS_GRID_ROUTE)">
+            <a title="Clan">Clan</a>
+            <div fxFlex fxLayoutAlign="end end" >
+              <a [routerLink]="constants.CLANS_GRID_ROUTE" target="_blank">
+                <i class="fas fa-external-link-alt navItemIcon" title="Open the Clan Page in a new window"></i>
+              </a>
+            </div>
+          </mat-list-item>
+
+        </div>  <!-- End of navMenuGroup -->
+      </ng-container>
+
+
+      <!-- Menu Group 2 -->
+      <div class='navHeader clickable'   (click)="toggleNavGroup(2)">
+        <i class="fa fa-file-alt navHeaderIcon"></i>
+        <span class="navHeaderTitle">Analytics</span>
+      </div>
+
+      <!-- Menu Group 2 Items -->
+      <div class='navGroup' [ngClass]="{'navGroupClosed': analyticsGroupClosed == true}">
+
+        <!-- Dashboard -->
+        <mat-list-item class="navItem" [routerLink]="constants.DASHBOARD_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.DASHBOARD_ROUTE)">
+          <a title="Dashboard">Dashboard</a>
+          <div fxFlex fxLayoutAlign="end end">
+            <a [routerLink]="constants.DASHBOARD_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open 'Dashboard' in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- Building Items Analysis -->
+        <mat-list-item class="navItem" [routerLink]="constants.BUILDINGS_GRID_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.BUILDINGS_GRID_ROUTE)">
+          <a title="Building Items">Building Items</a>
+          <div fxFlex fxLayoutAlign="end end" >
+            <a [routerLink]="constants.BUILDINGS_GRID_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open the Building Items Page in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- Inventory Items Analysis -->
+        <mat-list-item class="navItem" [routerLink]="constants.INVENTORY_GRID_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.INVENTORY_GRID_ROUTE)">
+          <a title="Inventory Items">Inventory Items</a>
+          <div fxFlex fxLayoutAlign="end end" >
+            <a [routerLink]="constants.INVENTORY_GRID_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open the Inventory Page in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- PvP Analysis Page -->
+        <mat-list-item class="navItem" [routerLink]="constants.SERVER_SIDE_GRID_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.SERVER_SIDE_GRID_ROUTE)">
+          <a title="PvP">PvP</a>
+          <div fxFlex fxLayoutAlign="end end" >
+            <a [routerLink]="constants.SERVER_SIDE_GRID_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open the PvP Page in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- Help -->
+        <mat-list-item class="navItem" (click)="this.downloadHelpFile()">
+          <a title="Show Help File">Help</a>
+          <div fxFlex fxLayoutAlign="end end">
+            <a (click)="this.downloadHelpFile()" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Show Help File in new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+      </div>  <!-- End of Menu Group 2 Items -->
+
+
+      <!-- Menu Group 3 -->
+      <div class='navHeader clickable'   (click)="toggleNavGroup(3)">
+        <i class="fa fa-file-alt navHeaderIcon"></i>
+        <span class="navHeaderTitle">Administration</span>
+      </div>
+
+      <!-- Menu Group 3 Items -->
+      <div class='navGroup' [ngClass]="{'navGroupClosed': adminGroupClosed == true}">
+
+        <!-- Dashboard -->
+        <mat-list-item class="navItem" [routerLink]="constants.DASHBOARD_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.DASHBOARD_ROUTE)">
+          <a title="Dashboard">Dashboard</a>
+          <div fxFlex fxLayoutAlign="end end">
+            <a [routerLink]="constants.DASHBOARD_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open 'Dashboard' in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- User Account Page -->
+        <mat-list-item class="navItem" [routerLink]="constants.REPORTS_GRID_VIEW_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.REPORTS_GRID_VIEW_ROUTE)">
+          <a title="User Accounts">User Account</a>
+          <div fxFlex fxLayoutAlign="end end" >
+            <a [routerLink]="constants.REPORTS_GRID_VIEW_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open 'Characters page' a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+
+      </div>  <!-- End of Menu Group 3 Items -->
+
+    </mat-nav-list>
+
+  </ng-container>
+
+</div>
+

@@ -1,0 +1,57 @@
+<div class="page-container">
+
+  <div fxFlexFill fxLayout="column" style="margin: 0; padding: 0">
+
+    <div fxFlex fxLayout="row" fxLayoutGap="0" style="margin: 0; padding: 0;">
+
+
+      <div fxFlex fxLayoutAlign="left top" fxLayout="row" fxLayoutGap="0" class="top-row">
+        <!-- Left Side of the 1st Row -->
+        <h1 class="mat-h1">Grid Tab Group Page</h1>
+      </div>
+
+
+      <div fxFlex fxLayoutAlign="end top">
+        <!-- Right Side of the 1st Row -->
+      </div>
+
+    </div>  <!-- End of 1st row -->
+
+    <div fxFlex fxLayout="row" fxLayoutGap="0" style="margin: 0 0 5px 0; padding: 0;">
+    </div>  <!-- End of 2nd row -->
+
+  </div>
+
+
+  <div style="margin-top: 5px;">
+
+    <!-- Tab Group  (by default show the 1st tab -->
+    <mat-tab-group animationDuration="0ms" [selectedIndex]=this.startingTabIndex >
+
+      <!-- Critical Reports Tab -->
+      <mat-tab label="Critical Reports">
+        <div class="tab-content">
+
+          <!-- Critical Reports Grid -->
+          <app-critical-reports-grid></app-critical-reports-grid>
+
+        </div>
+      </mat-tab>
+
+
+      <!-- All Reports Tab -->
+      <mat-tab label="All Reports">
+        <div class="tab-content">
+
+          <!-- All Reports Grid -->
+          <app-all-reports-grid></app-all-reports-grid>
+
+        </div>
+      </mat-tab>
+
+
+    </mat-tab-group>
+
+
+  </div>
+</div>

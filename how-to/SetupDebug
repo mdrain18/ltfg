@@ -1,0 +1,118 @@
+Configure Angular Debugging in IntelliJ
+-----------------------------------------------
+ 1. Startup IntelliJ and open the ltfg project
+
+ 2. Create this configuration:   "Angular CLI Server"
+    a. Pull Run / Edit Configurations
+       Select +   -> NPM
+
+       In the window on the right:
+         Name:              Angular CLI Server
+         Package.json:      ~/intellijProjects/ltfg/frontend/package.json
+         Command:           run
+         Scripts:           start
+         Arguments:
+         Node interpreter:  ~/.nvm/versions/node/v12.5.0/bin/node
+         Node options:
+         Package manager:   Project
+         Environment
+
+     b. Press Apply
+     c. Press OK
+
+ 3. Create this configuration:   "Angular Application"
+     a. Pull Run / Edit Configuration
+        Select +   ->  JavaScript Debug
+
+        In the window on the right:
+          Name:           Angular Application
+          URL:            http://localhost:4200
+          Browser:        Chrome
+          Check           "Ensure breakpoints are detected when loading scripts"
+
+     b. Press Apply
+     c. Press OK
+
+ 4. Set a breakpoint in app.component.ts on this line:
+    a. Browse to frontend/src/app/app.component.ts
+	b. Set a breakpoint on line 9 by clicking to the right of the line number.  The line should have this on it:
+           title = 'frontend';
+
+ 5. Verify that the debugger works
+    a. Select "Angular CLI Server" and press the "Run" icon
+       -- Wait for it to finish
+
+    b. Select "Angular Application" and press the "Debug" icon"
+       -- It should startup a Chrome browser connected to http://localhost:4200
+       -- You should hit your breakpoint
+       -- Press the "Continue" button (or F9)
+
+    c. If it works, Pull Run -> Stop -> Stop All
+
+
+
+ 6. Rename the IntelliJ debug option from "Application" to "Backend"
+    a. Go to the backend/src/main/java/com/lessons/Application
+    b. Right-click on the Application.main -> Debug 'Application.main()'
+    c. Verify that the backend is listening on port 8080
+       1) Open a browser
+       2) Connect to http://localhost:8080/ltfg/api/time
+          -- You should see the time
+
+    d. Pull Run / Stop Application
+
+    e. Rename this configuration from "Application" to "backend"
+       1) Pull Run / Edit Configurations...
+       2) Single click on Application / Application
+       3) On the Right side,
+          Name:  Backend
+       4) Press Apply
+       5) Press OK
+
+
+
+ 7. Setup the multirun plugin (so that you can debug the application with one click)
+    a. Install the multirun plugin
+       1) Pull File -> Settings
+       2) Click Plugins
+       3) In the Plugins search box, type-in multirun
+       4) Click the "install" button [on the right side]
+       5) You will be prompted, "JetBrains is not responsible for any processing of your personal data by any third-party plugin vendors"
+          Click Accept
+       6) Restart IntelliJ
+
+    b. Configure a MultiRun configuration to kick off the backend, the Angular CLI Server, *and* the Angular Application configurations
+	   1) Pull Run -> Edit Configurations
+	   2) Press +  ->  MultiRun
+
+	   3) In the window on the right
+             Name:  Full WebApp
+
+             Under "Choose configurations to run",
+               press +  Backend
+               press +  Angular CLI Server
+               press +  Angular Application
+
+             Check    "Start configurations one by one" with delay of 9 seconds
+             Uncheck  "Mark the tab of failed configuration"
+             Uncheck  "Close tab of successfully completed configurations"
+             Check    "Allow re-using tabs with succeeded run configurations"
+             Check    "Allow re-using tabs with failed run configurations"
+
+
+             NOTE:  Make sure the order is the same order as listed above
+                    We want the backend to start *first*
+
+        3) Press Apply
+        4) Press OK
+
+    c. Verify that it works
+       1) Pull Run -> Debug 'Full Webapp'
+       2) Press the "Debug" icon
+          -- A chrome browser should appear connected to http://localhost:4200
+
+	   3) Change the url on your browser to http://localhost:8080/ltfg/api/time
+	      -- You should see the time
+
+    d. Pull Run / Stop MultiRun
+

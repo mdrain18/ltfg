@@ -1,0 +1,37 @@
+Install Postgres and Initialize the ltfg Database
+----------------------------------------------------
+
+Procedure
+---------
+ 1. Initialize the database on Windows
+    a. Open the PSQL Shell
+       Press Start > PSQL
+
+    b. In the window, you will see some prompts:
+              username: postgres
+              password: secret
+              hostname: localhost
+              port:     5432
+
+    c. Enter these in the shell:
+
+          -- Database: ltfg
+
+          -- DROP DATABASE IF EXISTS ltfg;
+
+          CREATE DATABASE ltfg
+              WITH
+              OWNER = postgres
+              ENCODING = 'UTF8';
+
+          GRANT TEMPORARY, CONNECT ON DATABASE ltfg TO PUBLIC;
+          CREATE USER ltfg_user;
+          GRANT ALL ON DATABASE ltfg TO ltfg_user WITH GRANT OPTION;
+          GRANT ALL ON DATABASE ltfg TO postgres;
+		  CREATE SCHEMA IF NOT EXISTS ltfg
+              AUTHORIZATION postgres;
+          GRANT ALL ON SCHEMA ltfg TO ltfg_user WITH GRANT OPTION;
+          GRANT ALL ON SCHEMA ltfg TO postgres;
+          ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA ltfg
+          GRANT ALL ON TABLES TO ltfg_user WITH GRANT OPTION;
+		  \q

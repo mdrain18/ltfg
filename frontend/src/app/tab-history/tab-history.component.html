@@ -1,0 +1,118 @@
+<!-- Wrapper div that adds the "dark" or "light class -->
+<div style="margin-top: 10px"  [ngClass]="{
+          'light':   this.currentTheme.isLightMode == true,
+          'dark':    this.currentTheme.isLightMode == false
+ }">
+
+  <div class="tab-content">
+
+    <div style="height: calc(100vh - 200px);  padding-bottom: 5px">
+      <ng-container *ngIf="(this.historyEntriesObs | async) as historyEntries">
+        <!-- REST call came back with the list of history entries -->
+
+        <ng-container *ngIf="historyEntries.length == 0">
+          <!-- There are *NO* past history entries -->
+          There are no history entries found
+        </ng-container>
+
+        <ng-container *ngIf="historyEntries.length > 0">
+          <!-- There are past history entries -->
+
+          <div fxFlex fxLayout="column" fxLayoutAlign="start stretch" style="margin-left: 50px; margin-right: 50px;">
+            <div fxFlex fxFlexAlign="center">
+              <!-- Timeline Filter -->
+              <form novalidate autocomplete="off" [formGroup]="myForm">
+                <section>
+
+                  <!-- Date Range -->
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Date Range</mat-label>
+
+                    <!-- Event Type Drop Down -->
+                    <mat-select formControlName="eventDateRange" placeholder="Date Range">
+                      <mat-option [value]=0>All History</mat-option>
+                      <mat-option [value]=1>Last 2 days</mat-option>
+                      <mat-option [value]=2>Last Week</mat-option>
+                      <mat-option [value]=3>Last Month</mat-option>
+                      <mat-option [value]=4>Year to Date</mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+
+                  <!-- Event Type -->
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Event Types</mat-label>
+
+                    <!-- Event Type Drop Down -->
+                    <mat-select multiple formControlName="eventType" placeholder="All Event Types">
+                      <mat-option [value]=1>Application Submitted</mat-option>
+                      <mat-option [value]=2>Assigned to Manager for Review</mat-option>
+                      <mat-option [value]=3>Approved</mat-option>
+
+                    </mat-select>
+
+                  </mat-form-field>
+
+
+
+                  <!-- Event Text -->
+                  <mat-form-field appearance="outline" floatLabel="always">
+                    <mat-label>Event Text</mat-label>
+
+                    <!-- Event  Textbox -->
+                    <input matInput type="text" formControlName="eventText" placeholder="Enter event text...." />
+
+                  </mat-form-field>
+
+                  <!-- Apply Filter button -->
+                  <button type="button" mat-flat-button color="primary" title="Apply Filter">Filter</button>
+
+                </section>
+              </form>
+            </div>   <!-- End of div that holds timeline filter -->
+
+
+            <div>
+              <!-- Timeline -->
+              <timeline style="margin-bottom: 20px; margin-top: 20px">
+
+                <timeline-item *ngFor="let historyEntry of historyEntries" color="grey">
+                  <mat-card class="mat-elevation-z6" style="z-index: 20;">
+
+                    <mat-card-title class="timeline-card">{{historyEntry.authorFullName}}</mat-card-title>
+
+                    <mat-card-content>
+                      <h4>{{historyEntry.appStateDisplayed}}</h4>
+                      <p>{{historyEntry.description}}</p>
+                    </mat-card-content>
+
+                    <mat-card-subtitle>Additional information would be here</mat-card-subtitle>
+
+                    <mat-card-actions class="timeline-footer">
+                      <!-- Card Footer -->
+                      {{historyEntry.appStateDisplayed}}
+
+                      <div fxFlex fxLayoutAlign="end end">
+                        {{historyEntry.date}}
+                      </div>
+                    </mat-card-actions>
+                  </mat-card>
+
+                </timeline-item>
+
+              </timeline>
+            </div>
+
+          </div>
+
+
+        </ng-container>
+
+      </ng-container>   <!-- End of async pipe for historyEntriesObs -->
+
+
+    </div>
+  </div>
+</div>
+
+

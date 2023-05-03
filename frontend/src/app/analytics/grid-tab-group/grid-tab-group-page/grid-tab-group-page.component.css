@@ -1,0 +1,61 @@
+:host ::ng-deep .mat-tab-label{
+  /* label style */
+  min-width: 200px !important;
+  color: white;
+
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  margin: 5px;
+
+  /* Add a transparent border so that when a user clicks on a tab, there is no "bump" */
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+
+:host ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active  {
+  color: white;
+}
+
+
+:host ::ng-deep .mat-tab-label.mat-tab-label-active:not(.mat-tab-disabled),
+:host ::ng-deep .mat-tab-label.mat-tab-label-active.cdk-keyboard-focused:not(.mat-tab-disabled) {
+  /* Set color when tab loses focus */
+  opacity: 1;
+}
+
+
+:host ::ng-deep .mat-tab-header{
+  /* Set the default background color of the header */
+
+  /* Permalink - use to edit and share this gradient:  https://colorzilla.com/gradient-editor/#364150+0,111111+50,364150+100 */
+  background: #364150; /* Old browsers */
+  background: -moz-linear-gradient(left,  #364150 0%, #111111 50%, #364150 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left,  #364150 0%,#111111 50%,#364150 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right,  #364150 0%,#111111 50%,#364150 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#364150', endColorstr='#364150',GradientType=1 ); /* IE6-9 */
+
+}
+
+:host ::ng-deep mat-ink-bar.mat-ink-bar {
+  /* Remove the purple underline */
+  display: none;
+}
+
+
+:host  ::ng-deep .mat-tab-header, .mat-tab-nav-bar {
+  border-bottom: 0;
+}
+
+
+:host ::ng-deep .mat-tab-label.mat-tab-label-active {
+  /* Styles for the active tab label */
+  border: 2px solid white;
+  box-sizing: border-box;
+  border-radius: 20px;
+}
+
+

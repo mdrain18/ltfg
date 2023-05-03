@@ -1,0 +1,69 @@
+Git Commands - Basics
+-----------------------------------------------
+
+## Here are the basic commands you will be using 90% of the time:
+## This is the checkout command
+##      the -b means its a new branch
+##      if you do not need a new branch, you can remove the -b
+##      mdr_branchName is the branch's name
+##      Here is our schema: initials_whatYouAreDoing_WhereYouAreDoingIt
+##          Examples: mdr_loginPage_Frontend
+git checkout -b mdr_branchName
+
+## This is one of the branch commands
+##      the -D means delete the following branch
+git branch -D mdr_branchName
+
+## This is the fetch command
+##      the -a means get everything
+git fetch -a
+
+## This is a push command
+##  this will push everything you have committed in your current branch to the repo
+git push
+
+## You should never alter main, always checkout main and create a branch from it
+## To set up a new branch, follow these steps
+
+##  1st: we are going to checkout a temp branch
+git checkout -b temp
+
+##  2nd: we are going to do delete the main branch
+##      Why, because we want the most recent changes pushed to the repo
+##      the -f will force the deletion
+git branch -D main -f
+
+##  3rd: we get everything from the cloud repo
+git fetch -a
+
+##  4th: we checkout our main branch which has been updated
+##      we have to recreated it because we do not have a local copy of it
+git checkout -b main
+
+##  5th: we create our new branch
+git checkout -b mdr_finishingSetup
+
+##  6th: push our new branch
+git push
+
+##  You are going to get an error that looks like this
+PS C:\Dev\Projects\ltfg> git push
+fatal: The current branch mdr_finishingSetup has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin mdr_finishingSetup
+##  Copy, paste this line ^
+##  Like this
+git push --set-upstream origin mdr_finishingSetup
+
+##  You should see this
+Total 0 (delta 0), reused 0 (delta 0)
+remote:
+remote: Create a pull request for 'mdr_finishingSetup' on GitHub by visiting:
+remote:      https://github.com/mdrain18/Legit-Tools-for-Gaming/pull/new/mdr_finishingSetup
+remote:
+To github.com:mdrain18/Legit-Tools-for-Gaming.git
+ * [new branch]      mdr_finishingSetup -> mdr_finishingSetup
+Branch 'mdr_finishingSetup' set up to track remote branch 'mdr_finishingSetup' from 'origin'.
+
+##  Now your branch is ready to go!
