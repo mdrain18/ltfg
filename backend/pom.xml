@@ -221,6 +221,12 @@
       <version>42.2.18</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.jboss.openjdk-orb</groupId>
+      <artifactId>openjdk-orb</artifactId>
+      <version>8.0.2.Final</version>
+    </dependency>
+
   </dependencies>
 
   <build>
