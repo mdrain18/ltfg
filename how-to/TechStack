@@ -22,24 +22,24 @@ Procedures
     c:\tools\
 
 
- 2. Install Postgres 9.6 for Windows (or latest version)
+ 2. Install Postgres 15 for Windows
     a. Download the MSI installer
        1) Go to https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
-       2) Select the 9.6.18 for Windows x86-64
+       2) Select the 9.15 for Windows x86-64
        3) Save it to your Downloads
 
     b. Run the MSI installer
-       1) Run postgresql-9.6.18-2.windows-x64.exe
+       1) Run postgresql-15.windows-x64.exe
           NOTE:  It might install the Microsoft Visual C++
 
        2) In the Setup page, press Next
 
        3) For the installation directory, go with the defaults
-          C:\tools\postgres\9.6
+          C:\tools\postgres\15
           Press Next
 
        4) For the data directory, go with the defaults
-          C:\tools\postgres\9.6\data
+          C:\tools\postgres\15\data
           Press Next
 
        5) For the password:          NOTE: This is a local database.  Make your life easier by setting the password as secret
@@ -62,16 +62,16 @@ Procedures
           Uncheck "Launch Stackbuilder at exit"
           Press Finish
 
-    c. Add the C:\tools\postgres\9.6\bin to the PATH
+    c. Add the C:\tools\postgres\15\bin to the PATH
 	   a. <Start> Search for environment
 	   b. Click Edit environment variable for this account
 	   c. Add this directory to your PATH:
-	        C:\tools\postgres\9.6\bin
+	        C:\tools\postgres\15\bin
 
        d. Verify it works
 	      1) Opening a *new* DOS window by pressing Windows-R  cmd
 		     DOS> psql --version
-			 psql (PostgreSQL) 9.6.18
+			 psql (PostgreSQL) 9.15
 
 
  3. Install the Firefox web browser
