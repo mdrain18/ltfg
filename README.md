@@ -6,7 +6,7 @@ A web application which reports, automates, and executes different admin command
 
 <pre>
 To Get started From Project Setup
- 1. <a href="https://github.com/mdrain18/Legit-Tools-for-Gaming/blob/main/how-to/InitializeDatabase">
+ 1. <a href="https://github.com/mdrain18/ltfg/blob/main/how-to/InitializeDatabase">
             Install Postgres, setup the ltfg database, and create the ltfg_user account</a>
 
  2. Clone the project
@@ -26,6 +26,6 @@ To Get started From Project Setup
  
  4. Setup Debugging in IntelliJ Ultimate
     a. Open the project in IntelliJ
-    b. <a href="https://github.com/mdrain18/Legit-Tools-for-Gaming/blob/main/how-to/SetupDebug">Setup debugging (so you can debug TypeScript and Java code)</a>
+    b. <a href="https://github.com/mdrain18/ltfg/blob/main/how-to/SetupDebug">Setup debugging (so you can debug TypeScript and Java code)</a>
 
 </pre>
