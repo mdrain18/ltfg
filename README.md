@@ -6,7 +6,7 @@ A web application which reports, automates, and executes different admin command
 
 <pre>
 To Get started From Project Setup
- 1. <a href="https://github.com/mdrain18/ltfg/blob/main/how-to/InitializeDatabase">
+ 1. <a href="https://github.com/mdrain18/ltfg/blob/master/how-to/InitializeDatabase">
             Install Postgres, setup the ltfg database, and create the ltfg_user account</a>
 
  2. Clone the project
