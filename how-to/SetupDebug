@@ -2,6 +2,7 @@ Configure Angular Debugging in IntelliJ
 -----------------------------------------------
  1. Startup IntelliJ and open the ltfg project
 
+
  2. Create this configuration:   "Angular CLI Server"
     a. Pull Run / Edit Configurations
        Select +   -> NPM
@@ -20,6 +21,7 @@ Configure Angular Debugging in IntelliJ
      b. Press Apply
      c. Press OK
 
+
  3. Create this configuration:   "Angular Application"
      a. Pull Run / Edit Configuration
         Select +   ->  JavaScript Debug
@@ -32,6 +34,7 @@ Configure Angular Debugging in IntelliJ
 
      b. Press Apply
      c. Press OK
+
 
  4. Set a breakpoint in app.component.ts on this line:
     a. Browse to frontend/src/app/app.component.ts
@@ -48,7 +51,6 @@ Configure Angular Debugging in IntelliJ
        -- Press the "Continue" button (or F9)
 
     c. If it works, Pull Run -> Stop -> Stop All
-
 
 
  6. Rename the IntelliJ debug option from "Application" to "Backend"
@@ -68,7 +70,6 @@ Configure Angular Debugging in IntelliJ
           Name:  Backend
        4) Press Apply
        5) Press OK
-
 
 
  7. Setup the multirun plugin (so that you can debug the application with one click)

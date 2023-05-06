@@ -20,8 +20,6 @@ export class AddReport2Component implements OnInit {
   public reportSourceObs: Observable<LookupDTO[]>;
   public prioritiesObs: Observable<LookupDTO[]>;
 
-
-
   constructor(private messageService: MessageService,
               private formBuilder: FormBuilder,
               private lookupService: LookupService,
@@ -33,9 +31,6 @@ export class AddReport2Component implements OnInit {
     // Get the observable to the List of LookupDTO objects
     // NOTE:  The AsyncPipe will subscribe and unsubscribe automatically
     this.prioritiesObs = this.lookupService.getLookupWithTypeAndOrder(      "priority", "display_order");
-
-
-
 
     this.authorsObs = this.lookupService.getLookupWithTypeAndOrder("author", "name");
 
@@ -60,10 +55,7 @@ export class AddReport2Component implements OnInit {
           ValidatorUtils.validateMultipleSelect(1,2)
         ]]
     });
-
-
   }
-
 
   public reset(): void {
     console.log('user pressed reset');
@@ -97,7 +89,5 @@ export class AddReport2Component implements OnInit {
         console.log('REST call finally block');
     });
   }
-
-
 
 }

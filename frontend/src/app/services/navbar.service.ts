@@ -1,4 +1,3 @@
-
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from "rxjs";
 
@@ -10,7 +9,7 @@ class NavbarState {
 @Injectable({
   providedIn: 'root'
 })
-export class NavbarService  {
+export class NavbarService {
 
   private navbarStateSubject: BehaviorSubject<NavbarState>;
   private navbarState: NavbarState = new NavbarState();
@@ -30,7 +29,6 @@ export class NavbarService  {
   }
 
 
-
   public getNavbarStateAsObservable(): Observable<NavbarState> {
     return this.navbarStateSubject.asObservable();
   }
@@ -48,7 +46,6 @@ export class NavbarService  {
     // Send a message to the user-navbar (to tell the navbar to show or hide)
     this.navbarStateSubject.next(this.navbarState);
   }
-
 
 
   public toggleAppNavbar(): void {

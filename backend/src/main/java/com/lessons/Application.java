@@ -10,15 +10,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * Main Application
  **/
 @SpringBootApplication
-public class Application
-{
+public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
     /**
      * Web Application Starts Here
      **/
-    public static void main( String[] args )
-    {
+    public static void main(String[] args) {
         logger.debug("main() started.");
 
         // Start up Spring Boot but disable the banner

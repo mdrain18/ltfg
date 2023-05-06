@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {UserInfoDTO} from "../models/user-info-dto";
 import {EMPTY, Observable, of} from "rxjs";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {catchError, map, shareReplay} from "rxjs/operators";
+import {RegistrationDto} from "../models/registration-dto";
+import {LoginDto} from "../models/login-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +16,20 @@ export class UserService {
   private cachedObservable: Observable<UserInfoDTO> | null = null;
   private cachedAckObservable: Observable<boolean> | null = null
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   // Clears all cached things in this service
-  public clearCache(): void{
+  public clearCache(): void {
     this.cachedObservable = null;
     this.cachedAckObservable = null;
   }
 
   // Returns an observable that will end the users session in the backend
-  public logout() : Observable<string> {
+  public logout(): Observable<string> {
     const restUrl = environment.baseUrl + "/api/user/logout";
-    return this.httpClient.post<string>(restUrl, "", {responseType:'json'});
+    return this.httpClient.post<string>(restUrl, "", {responseType: 'json'});
   }
-
 
   /*
    * Return an observable that holds information about the user
@@ -45,26 +47,25 @@ export class UserService {
 
     // Get the observable and store it in the internal cache
     this.cachedObservable = this.httpClient.get <UserInfoDTO>(restUrl).pipe(
-        map( (userInfoDTO: UserInfoDTO) => {
+      map((userInfoDTO: UserInfoDTO) => {
 
-          // Convert the userInfoDTO.pageRoutes into a map
-          // So that the PageGuard does not have to do it repeatedly
-          let mapPageRoutes: Map<string, boolean> = new Map(Object.entries(userInfoDTO.pageRoutes));
+        // Convert the userInfoDTO.pageRoutes into a map
+        // So that the PageGuard does not have to do it repeatedly
+        let mapPageRoutes: Map<string, boolean> = new Map(Object.entries(userInfoDTO.pageRoutes));
 
-          userInfoDTO.pageRoutes = mapPageRoutes;
+        userInfoDTO.pageRoutes = mapPageRoutes;
 
-          return userInfoDTO;
-        }),
-       shareReplay(1)
-      );
+        return userInfoDTO;
+      }),
+      shareReplay(1)
+    );
 
     // Return the cached observable
     return this.cachedObservable;
 
   } // end of getUserInfo
 
-
-  public didUserAcknowledge() : Observable<boolean> {
+  public didUserAcknowledge(): Observable<boolean> {
     if (this.cachedAckObservable != null) {
       // This observable is in the cache.  So, return it from the cache
       return this.cachedAckObservable;
@@ -88,14 +89,13 @@ export class UserService {
     return this.cachedAckObservable;
   }
 
-
   public setUserAcknowledged(): Observable<string> {
     // Construct the URL of the REST call
     const restUrl = environment.baseUrl + '/api/user/ack/set'
 
     // Return an observable
-    return this.httpClient.post <string>(restUrl, {} ).pipe(
-      map( (result) => {
+    return this.httpClient.post <string>(restUrl, {}).pipe(
+      map((result) => {
         // The set-acknowledged REST call finished successfully
 
         // Set the cachedAckObservable to hold an observable holding true
@@ -111,7 +111,36 @@ export class UserService {
 
         return EMPTY;
       }));
+  }
 
+  public validateUserLogin(loginDto: LoginDto): Observable<boolean> {
+    const restUrl = `${environment.baseUrl}/api/user/val`;
+
+    return this.httpClient.post<boolean>(restUrl, loginDto).pipe(
+      map((result: boolean) => {
+        return result;
+      }),
+      catchError(err => {
+        console.error('There was an error validating user info. Error is ', err);
+
+        return EMPTY;
+      })
+    );
+  }
+
+  public registerUser(registrationDto: RegistrationDto): Observable<boolean> {
+    const restUrl = `${environment.baseUrl}/api/user/register`;
+
+    return this.httpClient.post<boolean>(restUrl, registrationDto).pipe(
+      map((result: boolean) => {
+        return result;
+      }),
+      catchError(err => {
+        console.error('There was an error registering user info. Error is ', err);
+
+        return EMPTY;
+      })
+    );
   }
 
 }

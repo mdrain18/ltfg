@@ -34,6 +34,6 @@ Procedure
           GRANT ALL ON SCHEMA ltfg TO postgres;
           ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA ltfg
           GRANT ALL ON TABLES TO ltfg_user WITH GRANT OPTION;
-	  ALTER ROLE ltfg_user CREATEDB;
-	  ALTER ROLE ltfg_user CREATEROLE;
+	      ALTER ROLE ltfg_user CREATEDB;
+	      ALTER ROLE ltfg_user CREATEROLE;
 		  \q

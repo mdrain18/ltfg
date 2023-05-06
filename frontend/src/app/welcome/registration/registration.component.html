@@ -1,0 +1,45 @@
+<mat-card class="registration-card">
+  <form (submit)="register()" [formGroup]="registrationForm" class="registration-form">
+    <h2>Registration</h2>
+    <mat-form-field>
+      <input formControlName="firstName" matInput placeholder="First Name">
+      <mat-error
+        *ngIf="registrationForm.controls.firstName.invalid && (registrationForm.controls.firstName.dirty || registrationForm.controls.firstName.touched)">
+        Please enter a valid first name.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="lastName" matInput placeholder="Last Name">
+      <mat-error
+        *ngIf="registrationForm.controls.lastName.invalid && (registrationForm.controls.lastName.dirty || registrationForm.controls.lastName.touched)">
+        Please enter a valid last name.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="email" matInput placeholder="Email">
+      <mat-error
+        *ngIf="registrationForm.controls.email.invalid && (registrationForm.controls.email.dirty || registrationForm.controls.email.touched)">
+        Please enter a valid email.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="username" matInput placeholder="Username">
+      <mat-error
+        *ngIf="registrationForm.controls.username.invalid && (registrationForm.controls.username.dirty || registrationForm.controls.username.touched)">
+        Please enter a valid username.
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input formControlName="password" matInput placeholder="Password" type="password">
+      <mat-error
+        *ngIf="registrationForm.controls.password.invalid && (registrationForm.controls.password.dirty || registrationForm.controls.password.touched)">
+        Please enter a valid password.
+      </mat-error>
+    </mat-form-field>
+    <button color="primary" mat-raised-button type="submit">Register</button>
+    <button (click)="reset()" color="warn" mat-raised-button type="button">Reset</button>
+  </form>
+  <div class="login-link">
+    <a routerLink="/page/login">Login</a>
+  </div>
+</mat-card>

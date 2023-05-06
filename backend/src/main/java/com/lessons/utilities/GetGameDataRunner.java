@@ -30,11 +30,11 @@ public class GetGameDataRunner implements CommandLineRunner {
 
         logger.debug("GetGameDataRunner() called");
 
-        getGameData.transferClanData();
-        getGameData.transferCharacterData();
+//        getGameData.transferClanData();
+//        getGameData.transferCharacterData();
 //        getGameData.transferGameEventData();
-        getGameData.transferBuildingData();
-        getGameData.transferItemInventoryData();
+//        getGameData.transferBuildingData();
+//        getGameData.transferItemInventoryData();
 
         List<GetCharactersDTO> characters = reportService.getAllCharacters();
         String charactersIndex = "characters";

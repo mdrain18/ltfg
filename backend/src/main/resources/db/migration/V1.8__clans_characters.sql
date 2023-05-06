@@ -57,7 +57,7 @@ CREATE TABLE characters
 
 -------------------------------------------------------------------------------------------------
 -- Function to update the total_members count in the clan_metrics table
-CREATE OR REPLACE FUNCTION update_total_members_count()
+CREATE OR REPLACE FUNCTION ltfg.update_total_members_count()
     RETURNS TRIGGER AS
 $$
 BEGIN
@@ -75,12 +75,12 @@ CREATE TRIGGER update_total_members_count_trigger
     AFTER INSERT
     ON ltfg.characters
     FOR EACH ROW
-EXECUTE FUNCTION update_total_members_count();
+EXECUTE FUNCTION ltfg.update_total_members_count();
 
 -- This function updates the active_members count in the clan_metrics table for a given clan_id.
 -- It calculates the number of active members based on the last_login_date in the characters table.
 -- A member is considered "active" if they have logged in within the past 7 days.
-CREATE OR REPLACE FUNCTION update_active_members(p_clan_id INTEGER)
+CREATE OR REPLACE FUNCTION ltfg.update_active_members(p_clan_id INTEGER)
     RETURNS VOID AS $$
 BEGIN
     UPDATE clan_metrics
@@ -99,7 +99,7 @@ CREATE OR REPLACE FUNCTION update_active_members_trigger()
     RETURNS TRIGGER AS $$
 BEGIN
     IF NEW.last_login_date <> OLD.last_login_date THEN
-        PERFORM update_active_members(NEW.clan_id);
+        PERFORM ltfg.update_active_members(NEW.clan_id);
     END IF;
     RETURN NEW;
 END;
@@ -109,7 +109,7 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER update_active_members_on_login
     AFTER UPDATE OF last_login_date ON characters
     FOR EACH ROW
-EXECUTE FUNCTION update_active_members_trigger();
+EXECUTE FUNCTION ltfg.update_active_members_trigger();
 
 -- Function to update the is_new field in the characters table
 CREATE OR REPLACE FUNCTION update_is_new()
@@ -136,12 +136,5 @@ CREATE TRIGGER update_is_new_trigger
     AFTER INSERT OR UPDATE OF created_at
     ON ltfg.characters
     FOR EACH ROW
-EXECUTE FUNCTION update_is_new();
+EXECUTE FUNCTION ltfg.update_is_new();
 
--- ---------------------------Here for notes-----------------------------------------------------
--- -- Importing data for testing
--- copy ltfg.clan_metrics (clan_id, clan_name, message_of_the_day, owner_id)
---     FROM 'C:/Users/mdrai/DOWNLO~1/clans.csv' DELIMITER ',' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '''';
---
--- copy ltfg.characters (char_game_id, character_name, platformid, level, game_id, clan_id, is_admin, last_login_date, time_played)
---     FROM 'C:/Users/mdrai/DOWNLO~1/CHARAC~1.CSV' DELIMITER ',' CSV HEADER ENCODING 'UTF8' QUOTE '\"' ESCAPE '''';

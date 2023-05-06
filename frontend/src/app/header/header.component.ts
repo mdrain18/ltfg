@@ -1,4 +1,3 @@
-
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NavbarService} from "../services/navbar.service";
 import {ThemeOptionDTO} from "../models/theme-option-dto";
@@ -14,24 +13,21 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private themeStateSubscription: Subscription;
   public currentTheme: ThemeOptionDTO;
+  private themeStateSubscription: Subscription;
 
   constructor(private matDialog: MatDialog,
               private navbarService: NavbarService,
               private userService: UserService,
-              private themeService: ThemeService)
-  {}
-
+              private themeService: ThemeService) {
+  }
 
   public ngOnInit(): void {
-
     // Listen for changes from the theme service
-    this.themeStateSubscription = this.themeService.getThemeStateAsObservable().subscribe( (aNewTheme: ThemeOptionDTO) => {
+    this.themeStateSubscription = this.themeService.getThemeStateAsObservable().subscribe((aNewTheme: ThemeOptionDTO) => {
       // The theme has changed.
       this.currentTheme = aNewTheme;
     });
-
   }
 
   public ngOnDestroy(): void {
@@ -52,7 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public userClickedLogout(): void {
 
     // Invoke the REST call to end the user's session
-    this.userService.logout().subscribe(()=>{
+    this.userService.logout().subscribe(() => {
       // REST endpoint succeeded
 
       // Clear the frontend cache

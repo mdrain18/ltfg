@@ -19,11 +19,11 @@ import {ThemeService} from "./services/theme.service";
   animations: [
     trigger('fadeInOut', [
       transition(':enter', [   // :enter is alias to 'void => *'
-        style({opacity:0}),
-        animate(500, style({opacity:1}))
+        style({opacity: 0}),
+        animate(500, style({opacity: 1}))
       ]),
       transition(':leave', [   // :leave is alias to '* => void'
-        animate(500, style({opacity:0}))
+        animate(500, style({opacity: 0}))
       ])
     ])
   ]
@@ -33,24 +33,21 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public isAppNavVisible = true;       // The left nav starts out as visible
   public isUserNavVisible = false;    // The right nav starts out as not visible
+  public showBannerOnPage: boolean;
+  public disableAnimations: boolean = true;
+  public bannerObs: Observable<GetOnePreferenceDTO>
   private showNavSubscription: Subscription;
   private bannerSubscription: Subscription;
-
   private errorSubscription: Subscription;
   private errorDialogIsOpen = false;
   private errorDialogRef: MatDialogRef<ErrorDialogComponent, any>;
-  public showBannerOnPage: boolean;
-  public disableAnimations: boolean = true;
-
-  public bannerObs: Observable<GetOnePreferenceDTO>
-
 
   constructor(private navbarService: NavbarService,
               private errorService: ErrorService,
               private bannerService: BannerService,
               private themeService: ThemeService,
-              private matDialog: MatDialog)
-  { }
+              private matDialog: MatDialog) {
+  }
 
 
   public ngOnInit(): void {
@@ -67,8 +64,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         if (aData.value == null) {
           // This user has *no previous preference*.  So, have show.banner initialize to TRUE (to show the banner)
           this.bannerService.initialize(true);
-        }
-        else {
+        } else {
           // This user has a preference.  So, initialize the bannerService with the stored string value
           let initialShowBannerValue: boolean = true;
           if (aData.value.toLowerCase() == 'false') {
@@ -81,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
         // Now that the banner service is initialized we can listen on it
         this.bannerSubscription =
-          this.bannerService.getStateAsObservable().subscribe( (aShowBanner: boolean) => {
+          this.bannerService.getStateAsObservable().subscribe((aShowBanner: boolean) => {
             // We received a message from the Banner Service
             // If we receive false, then set the flag to false
             // If we receive true,  then set the flag to true
@@ -103,9 +99,8 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isUserNavVisible = navbarState.isUserNavbarDisplayed;
       });
 
-
     this.errorSubscription =
-      this.errorService.getErrors().subscribe( (aError: HttpErrorResponse) => {
+      this.errorService.getErrors().subscribe((aError: HttpErrorResponse) => {
         // An error came in.  So, display the error in a popup
 
         // Create the form data object (to pass-in to the dialog box)
@@ -117,8 +112,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
         if (typeof aError.error === 'object') {
           // The aError.error is an object.  So, pull the error from aError.error.message
           errorFormData.message = aError.error.message;
-        }
-        else {
+        } else {
           // The aError.error is not an object.  So, pull the error from aError.error
           errorFormData.message = aError.error;
         }
@@ -147,9 +141,7 @@ export class AppComponent implements OnInit, OnDestroy, AfterViewInit {
 
   }
 
-
   public ngAfterViewInit(): void {
-
     setTimeout(() => {
       // The page has finished loading, so set the flag so that animations proceed
       // NOTE:  This flag must be set in a setTimeout for this trick to work.

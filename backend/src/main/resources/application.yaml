@@ -106,7 +106,7 @@ app.datasource:
   maxPoolSize: 10
 
 app.datasourceSQLite:
-  database-path: ${java.io.tmpdir}/game.db
+  database-path: /tmp/game.db
 
 ################################################
 # SSL Settings

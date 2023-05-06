@@ -2,6 +2,9 @@ export enum Constants {
   FORBIDDEN_ROUTE              = "page/403",
   AUDIT_HISTORY_ROUTE          = "page/auditHistory",
   ADD_REPORTS_ROUTE            = "page/reports/add",
+  LOGIN_ROUTE                  = "page/login",
+  REGISTRATION_ROUTE           = "page/registration",
+  WELCOME_ROUTE                = "page/welcome",
   ADD_REPORTS2_ROUTE           = "page/reports/add2",
   REPORTS_GRID_VIEW_ROUTE      = "page/reports/grid",
   VIEW_REPORTS_ROUTE           = "page/viewReports",
@@ -13,8 +16,6 @@ export enum Constants {
   EDIT_REPORT_ROUTE            = "page/reports/edit/",    // This route has a required id
   SEARCH_DETAILS_ROUTE         = "page/search/details/",  // This route has a required id
   UPLOAD_REPORT_ROUTE          = "page/report/upload",
-  CHART1_ROUTE                 = "page/chart1",
-  CHART2_ROUTE                 = "page/chart2",
   REPORT_SUBMIT_MARKDOWN       = "page/reports/markdown-submit",
   REPORT_PDFVIEWER_ROUTE       = "page/reports/pdf-viewer",
   TAB_GROUP_ROUTE              = "page/reports/tab-group",

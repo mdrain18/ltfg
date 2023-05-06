@@ -86,15 +86,27 @@ import {CriticalReportsActionRendererComponent} from './analytics/grid-tab-group
 import {UserIsLoggedOutDialogComponent} from './dialogs/user-is-logged-out-dialog/user-is-logged-out-dialog.component';
 import {CharactersGridComponent} from './reports/characters-grid/characters-grid.component';
 import {ClanGridComponent} from './reports/clan-grid/clan-grid.component';
-import { BuildingGridComponent } from './reports/building-grid/building-grid.component';
-import { InventoryGridComponent } from './reports/inventory-grid/inventory-grid.component';
+import {BuildingGridComponent} from './reports/building-grid/building-grid.component';
+import {InventoryGridComponent} from './reports/inventory-grid/inventory-grid.component';
+import {RegistrationComponent} from './welcome/registration/registration.component';
+import {LoginComponent} from './welcome/login/login.component';
 
 // Setup the routes.  If no route is found, then take the user to the NotFoundComponent
 const appRoutes: Routes = [
   {
-    path: Constants.ADD_REPORTS_ROUTE,
-    component: AddReportComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]
+    path: Constants.WELCOME_ROUTE,
+    component: WelcomeComponent,
+    canActivate: [UserAcknowledgeGuard]
+  },
+  {
+    path: Constants.LOGIN_ROUTE,
+    component: LoginComponent,
+    canActivate: [UserAcknowledgeGuard]
+  },
+  {
+    path: Constants.REGISTRATION_ROUTE,
+    component: RegistrationComponent,
+    canActivate: [UserAcknowledgeGuard]
   },
   {
     path: Constants.REPORTS_GRID_VIEW_ROUTE,
@@ -104,19 +116,23 @@ const appRoutes: Routes = [
   {
     path: Constants.ADD_REPORTS2_ROUTE,
     component: AddReport2Component,
-    canActivate: [UserAcknowledgeGuard, PageGuard]},
+    canActivate: [UserAcknowledgeGuard, PageGuard]
+  },
   {
     path: Constants.VIEW_REPORTS_ROUTE,
     component: ViewReportsComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]},
+    canActivate: [UserAcknowledgeGuard, PageGuard]
+  },
   {
     path: Constants.DASHBOARD_ROUTE,
     component: DashboardComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]},
+    canActivate: [UserAcknowledgeGuard, PageGuard]
+  },
   {
     path: Constants.USA_MAP_ROUTE,
     component: UsaMapComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]},
+    canActivate: [UserAcknowledgeGuard, PageGuard]
+  },
   {
     path: Constants.CHART_DRILLDOWN_ROUTE,
     component: ChartDrillDownComponent,
@@ -160,7 +176,8 @@ const appRoutes: Routes = [
   {
     path: Constants.TAB_GROUP_ROUTE,
     component: TabGroupComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]},
+    canActivate: [UserAcknowledgeGuard, PageGuard]
+  },
   {
     path: Constants.SERVER_SIDE_GRID_ROUTE,
     component: ServerSideGridComponent,
@@ -186,8 +203,6 @@ const appRoutes: Routes = [
     component: InventoryGridComponent,
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
-
-
   {
     path: Constants.DASHBOARD_BAR_CHART_PAGE,
     component: BarChartPageComponent,
@@ -201,13 +216,13 @@ const appRoutes: Routes = [
   {
     path: Constants.DASHBOARD_GRID_PAGE,
     component: GridPageComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]},
+    canActivate: [UserAcknowledgeGuard, PageGuard]
+  },
   {
     path: Constants.DASHBOARD_LAYOUT_ROUTE,
     component: DashboardLayoutComponent,
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
-
   {
     path: Constants.GRID_TAB_GROUP_ROUTE + ':startingTab',
     component: GridTabGroupPageComponent,
@@ -220,14 +235,17 @@ const appRoutes: Routes = [
   },
   {
     path: Constants.FORBIDDEN_ROUTE,
-    component: ForbiddenComponent},
+    component: ForbiddenComponent
+  },
   {
     path: '',
-    component: DashboardLayoutComponent,
-    canActivate: [UserAcknowledgeGuard]},
+    component: LoginComponent,
+    canActivate: [UserAcknowledgeGuard]
+  },
   {
     path: '**',
-    component: NotFoundComponent}
+    component: NotFoundComponent
+  }
 ];
 
 // @ts-ignore
@@ -284,7 +302,9 @@ const appRoutes: Routes = [
     CharactersGridComponent,
     ClanGridComponent,
     BuildingGridComponent,
-    InventoryGridComponent
+    InventoryGridComponent,
+    RegistrationComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
