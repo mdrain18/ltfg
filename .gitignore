@@ -37,3 +37,4 @@ backend/target/*
 
 ## Ignore the target directories found in install-bdp
 install-bdp/target/*
+*.db
