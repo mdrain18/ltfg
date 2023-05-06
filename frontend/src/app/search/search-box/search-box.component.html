@@ -1,24 +1,25 @@
-<div class="searchBoxWrapper fa-border">
+<!--Removing non-used search  bar-->
+<!--<div class="searchBoxWrapper fa-border">-->
 
-  <!-- Search Box -->
-  <input [formControl]="this.searchTextBox"   [matAutocomplete]="autocomplete1"
-         matInput type="text" id="searchBox" placeholder="Enter Criteria..." aria-label="search box" />
-
-
-  <!-- Search Icon -->
-  <span class="searchBoxIcon">
-    <i class="fa fa-search"></i>
-  </span>
+<!--  &lt;!&ndash; Search Box &ndash;&gt;-->
+<!--  <input [formControl]="this.searchTextBox"   [matAutocomplete]="autocomplete1"-->
+<!--         matInput type="text" id="searchBox" placeholder="Enter Criteria..." aria-label="search box" />-->
 
 
-  <!-- Show Popup autocomplete entries for matching search results -->
-  <mat-autocomplete #autocomplete1="matAutocomplete" panelWidth="auto"
-                    (optionSelected)="this.goToDetailsPage($event.option.value)">
+<!--  &lt;!&ndash; Search Icon &ndash;&gt;-->
+<!--  <span class="searchBoxIcon">-->
+<!--    <i class="fa fa-search"></i>-->
+<!--  </span>-->
 
-    <mat-option *ngFor="let match of this.searchMatchesToShowObs | async" [value]="match">
-      {{match.name}}
-    </mat-option>
 
-  </mat-autocomplete>
+<!--  &lt;!&ndash; Show Popup autocomplete entries for matching search results &ndash;&gt;-->
+<!--  <mat-autocomplete #autocomplete1="matAutocomplete" panelWidth="auto"-->
+<!--                    (optionSelected)="this.goToDetailsPage($event.option.value)">-->
 
-</div>
+<!--    <mat-option *ngFor="let match of this.searchMatchesToShowObs | async" [value]="match">-->
+<!--      {{match.name}}-->
+<!--    </mat-option>-->
+
+<!--  </mat-autocomplete>-->
+
+<!--</div>-->
