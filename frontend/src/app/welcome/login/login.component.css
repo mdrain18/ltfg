@@ -1,0 +1,20 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-card {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.register-link {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
