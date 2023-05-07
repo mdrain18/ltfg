@@ -4,7 +4,6 @@ import {NgModule} from '@angular/core';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {AddReportComponent} from './reports/add-report/add-report.component';
 import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSelectModule} from "@angular/material/select";
@@ -17,24 +16,22 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {NotFoundComponent} from './not-found/not-found.component';
+import {NotFoundComponent} from './framework/not-found/not-found.component';
 import {RouterModule, Routes} from "@angular/router";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import {HeaderComponent} from './header/header.component';
-import {NavbarComponent} from './navbar/navbar.component';
-import {UserNavbarComponent} from './user-navbar/user-navbar.component';
+import {HeaderComponent} from './framework/header/header.component';
+import {NavbarComponent} from './framework/navbar/navbar.component';
+import {UserNavbarComponent} from './framework/user-navbar/user-navbar.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
-import {AddReport2Component} from './reports/add-report2/add-report2.component';
+import {AddBugreportComponent} from './reports/add-bugreport/add-bugreport.component';
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {ErrorDialogComponent} from './errorHandler/error-dialog/error-dialog.component';
-import {ErrorInterceptor} from "./errorHandler/error.interceptor";
+import {ErrorDialogComponent} from './framework/errorHandler/error-dialog/error-dialog.component';
+import {ErrorInterceptor} from "./framework/errorHandler/error.interceptor";
 import {EditReportComponent} from './reports/edit-report/edit-report.component';
 import {FileUploadModule} from "ng2-file-upload";
-import {UploadReportComponent} from './reports/upload-report/upload-report.component';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {LongViewInnerReportComponent} from './reports/long-view-inner-report/long-view-inner-report.component';
 import {LongViewOuterReportComponent} from './reports/long-view-outer-report/long-view-outer-report.component';
 import {LongViewInternalNavReportComponent} from './reports/long-view-internal-nav-report/long-view-internal-nav-report.component';
 import {DashboardComponent} from './analytics/dashboard/dashboard.component';
@@ -42,12 +39,12 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {HighchartsChartModule} from 'highcharts-angular';
 import {UsaMapComponent} from './analytics/usa-map/usa-map.component';
 import {ChartDrillDownComponent} from "./analytics/chart-drill-down/chart-drill-down.component";
-import {BannerComponent} from './banner/banner.component';
+import {BannerComponent} from './framework/banner/banner.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {SearchBoxComponent} from './search/search-box/search-box.component';
-import {SearchBoxDetailsComponent} from './search/search-box-details/search-box-details.component';
-import {ForbiddenComponent} from './forbidden/forbidden.component';
-import {PageGuard} from "./guards/page.guard";
+import {SearchBoxComponent} from './framework/search/search-box/search-box.component';
+import {SearchBoxDetailsComponent} from './framework/search/search-box-details/search-box-details.component';
+import {ForbiddenComponent} from './security/forbidden/forbidden.component';
+import {PageGuard} from "./security/guards/page.guard";
 import {Constants} from "./utilities/constants";
 import {AgGridModule} from "ag-grid-angular";
 import {ReportGridViewComponent} from './reports/report-grid-view/report-grid-view/report-grid-view.component';
@@ -77,7 +74,7 @@ import {GridLittleComponent} from './analytics/dashboard2/grid-little/grid-littl
 import {BarChartLittleComponent} from './analytics/dashboard2/bar-chart-little/bar-chart-little.component';
 import {BarChartPageComponent} from "./analytics/dashboard2/bar-chart-page/bar-chart-page.component";
 import {UserAcknowledgeDialogComponentComponent} from './dialogs/user-acknowledge-dialog-component/user-acknowledge-dialog-component.component';
-import {UserAcknowledgeGuard} from "./guards/user-acknowledge.guard";
+import {UserAcknowledgeGuard} from "./security/guards/user-acknowledge.guard";
 import {GridTabGroupPageComponent} from './analytics/grid-tab-group/grid-tab-group-page/grid-tab-group-page.component';
 import {CriticalReportsGridComponent} from './analytics/grid-tab-group/critical-reports-grid/critical-reports-grid.component';
 import {AllReportsGridComponent} from './analytics/grid-tab-group/all-reports-grid/all-reports-grid.component';
@@ -114,8 +111,8 @@ const appRoutes: Routes = [
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
   {
-    path: Constants.ADD_REPORTS2_ROUTE,
-    component: AddReport2Component,
+    path: Constants.ADD_BUGREPORTS_ROUTE,
+    component: AddBugreportComponent,
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
   {
@@ -154,22 +151,12 @@ const appRoutes: Routes = [
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
   {
-    path: Constants.UPLOAD_REPORT_ROUTE,
-    component: UploadReportComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]
-  },
-  {
-    path: Constants.LONGVIEW_REPORT,
-    component: LongViewOuterReportComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]
-  },
-  {
     path: Constants.REPORT_SUBMIT_MARKDOWN,
     component: ReportSubmitMarkdownComponent,
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
   {
-    path: Constants.REPORT_PDFVIEWER_ROUTE,
+    path: Constants.REPORT_HELP_DOC_ROUTE,
     component: PdfViewerComponent,
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
@@ -252,18 +239,15 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AddReportComponent,
     WelcomeComponent,
     ViewReportsComponent,
     NotFoundComponent,
     HeaderComponent,
     NavbarComponent,
     UserNavbarComponent,
-    AddReport2Component,
+    AddBugreportComponent,
     ErrorDialogComponent,
     EditReportComponent,
-    UploadReportComponent,
-    LongViewInnerReportComponent,
     LongViewOuterReportComponent,
     LongViewInternalNavReportComponent,
     DashboardComponent,

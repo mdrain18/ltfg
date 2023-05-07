@@ -1,10 +1,10 @@
 import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {NavbarService} from "./services/navbar.service";
-import {ErrorService} from "./errorHandler/error.service";
+import {ErrorService} from "./framework/errorHandler/error.service";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {ErrorDialogComponent} from "./errorHandler/error-dialog/error-dialog.component";
-import {ErrorDialogFormData} from "./errorHandler/error-dialog-form-data";
+import {ErrorDialogComponent} from "./framework/errorHandler/error-dialog/error-dialog.component";
+import {ErrorDialogFormData} from "./framework/errorHandler/error-dialog-form-data";
 import {HttpErrorResponse} from "@angular/common/http";
 import {BannerService} from "./services/banner.service";
 import {animate, style, transition, trigger} from "@angular/animations";

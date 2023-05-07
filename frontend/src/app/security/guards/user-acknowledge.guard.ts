@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import { map, switchMap,} from "rxjs/operators";
-import {UserService} from "../services/user.service";
+import {UserService} from "../../services/user.service";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {UserAcknowledgeDialogComponentComponent} from "../dialogs/user-acknowledge-dialog-component/user-acknowledge-dialog-component.component";
+import {UserAcknowledgeDialogComponentComponent} from "../../dialogs/user-acknowledge-dialog-component/user-acknowledge-dialog-component.component";
 
 @Injectable({
   providedIn: 'root'

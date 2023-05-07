@@ -30,11 +30,21 @@ public class GetGameDataRunner implements CommandLineRunner {
 
         logger.debug("GetGameDataRunner() called");
 
+        // TODO: we are going to thread this
+        //       each api will be on a its own thread
 //        getGameData.transferClanData();
 //        getGameData.transferCharacterData();
 //        getGameData.transferGameEventData();
 //        getGameData.transferBuildingData();
 //        getGameData.transferItemInventoryData();
+
+
+        // TODO: There are few things we are going to do with this
+        //       - thread the ingestion to ElasticSearch
+        //          - batch ingest for larger tables like game_events
+        //       - only ingest changes made from last ingestion
+        //          - update the ltfg postgres schema
+
 
         List<GetCharactersDTO> characters = reportService.getAllCharacters();
         String charactersIndex = "characters";

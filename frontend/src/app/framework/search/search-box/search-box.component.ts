@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {Observable} from "rxjs";
-import {AutoCompleteMatchDTO} from "../../models/auto-complete-match-dto";
+import {AutoCompleteMatchDTO} from "../../../models/auto-complete-match-dto";
 import {debounceTime, startWith, switchMap} from "rxjs/operators";
-import {ElasticSearchService} from "../../services/elastic-search.service";
+import {ElasticSearchService} from "../../../services/elastic-search.service";
 import {Router} from "@angular/router";
-import {Constants} from "../../utilities/constants";
+import {Constants} from "../../../utilities/constants";
 
 @Component({
   selector: 'app-search-box',

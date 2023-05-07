@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {ErrorService} from "../../errorHandler/error.service";
+import {ErrorService} from "../../framework/errorHandler/error.service";
 import {HttpErrorResponse} from "@angular/common/http";
 import {isNumeric} from "rxjs/internal-compatibility";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";

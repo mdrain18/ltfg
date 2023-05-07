@@ -10,10 +10,10 @@ import {ReportService} from "../../services/report.service";
 
 @Component({
   selector: 'app-add-report2',
-  templateUrl: './add-report2.component.html',
-  styleUrls: ['./add-report2.component.css']
+  templateUrl: './add-bugreport.component.html',
+  styleUrls: ['./add-bugreport.component.css']
 })
-export class AddReport2Component implements OnInit {
+export class AddBugreportComponent implements OnInit {
 
   public myForm: FormGroup;
   public authorsObs: Observable<LookupDTO[]>;

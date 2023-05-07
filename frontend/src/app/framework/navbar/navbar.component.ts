@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Constants} from "../utilities/constants";
-import {UserService} from "../services/user.service";
+import {Constants} from "../../utilities/constants";
+import {UserService} from "../../services/user.service";
 import {Observable, Subscription} from "rxjs";
-import {UserInfoDTO} from "../models/user-info-dto";
-import {ThemeService} from "../services/theme.service";
-import {ThemeOptionDTO} from "../models/theme-option-dto";
+import {UserInfoDTO} from "../../models/user-info-dto";
+import {ThemeService} from "../../services/theme.service";
+import {ThemeOptionDTO} from "../../models/theme-option-dto";
 
 @Component({
   selector: 'app-navbar',

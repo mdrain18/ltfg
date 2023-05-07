@@ -8,6 +8,10 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+// TODO: This might be OBE
+//      - this was needed before we switch to using an API
+//      - there is a future use case which may make use of this class
+
 @Service
 public class FileService {
 
@@ -34,7 +38,6 @@ public class FileService {
         // Write the file to the regular file system
         Files.copy(aInputStream, destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
-
 
 
     public void createDirectoryIfNotExists(String aDestinationFilePath) {

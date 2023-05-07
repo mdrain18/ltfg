@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NavbarService} from "../services/navbar.service";
-import {ThemeOptionDTO} from "../models/theme-option-dto";
+import {NavbarService} from "../../services/navbar.service";
+import {ThemeOptionDTO} from "../../models/theme-option-dto";
 import {Subscription} from "rxjs";
-import {ThemeService} from "../services/theme.service";
-import {UserService} from "../services/user.service";
-import {UserIsLoggedOutDialogComponent} from "../dialogs/user-is-logged-out-dialog/user-is-logged-out-dialog.component";
+import {ThemeService} from "../../services/theme.service";
+import {UserService} from "../../services/user.service";
+import {UserIsLoggedOutDialogComponent} from "../../dialogs/user-is-logged-out-dialog/user-is-logged-out-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({

@@ -1,0 +1,56 @@
+<ng-container *ngIf="(this.userInfoObs | async) as userInfo">
+    <!-- The UserInfoObs data has come in.  So, show the navbar -->
+
+    <div class="navbar">
+      <mat-nav-list style="margin-top: 0; padding-top: 0">
+
+        <!-- User Profile -->
+        <mat-list-item class="navItem" [routerLink]="constants.VIEW_REPORTS_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.VIEW_REPORTS_ROUTE)">
+          <a title="User Profile">User Profile</a>
+          <div fxFlex fxLayoutAlign="end end">
+            <a [routerLink]="'page/viewReports'" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open View Reports in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- Add Bug Report -->
+        <mat-list-item class="navItem" [routerLink]="constants.ADD_BUGREPORTS_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.ADD_BUGREPORTS_ROUTE)">
+          <a title="Add Bug Report">Add Bug Report</a>
+          <div fxFlex fxLayoutAlign="end end">
+            <a [routerLink]="constants.ADD_BUGREPORTS_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open Add Bug Report in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- Help -->
+        <mat-list-item class="navItem" [routerLink]="constants.REPORT_HELP_DOC_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.REPORT_HELP_DOC_ROUTE)">
+          <a title="Help">Help</a>
+          <div fxFlex fxLayoutAlign="end end">
+            <a [routerLink]="constants.REPORT_HELP_DOC_ROUTE" target="_blank">
+              <i class="fas fa-external-link-alt navItemIcon" title="Open the Help Doc in a new window"></i>
+            </a>
+          </div>
+        </mat-list-item>
+
+        <!-- Logout -->
+        <mat-list-item class="navItem"[mat-menu-trigger-for]="appMenu">
+          <a title="Logout">Logout</a>
+          <div fxFlex fxLayoutAlign="end end">
+          </div>
+        </mat-list-item>
+
+      </mat-nav-list>
+    </div>
+
+  <!-- Popup User Menu -->
+  <mat-menu #appMenu="matMenu">
+    <a title="Are you sure?">Are you sure?</a>
+    <button mat-menu-item (click)="this.userClickedLogout()">Click for yes</button>
+  </mat-menu>
+
+</ng-container>

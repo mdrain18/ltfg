@@ -1,0 +1,106 @@
+Decoding the Game.db
+    ** Note: the database schema has changed slightly since the release of Conan 2.0 **
+    ** What we have been able to figure out **
+
+Majority of the information was pulled from here:
+    https://nodecraft.com/support/games/conan-exiles/decoding-the-game-db#h-iteminventory-c6dc0a2961
+
+All save game information for Conan Exiles is saved in a single file, in the form of an SQLite database
+The database can be opened and viewed with any SQLite compatible reader.
+The file is normally in /ConanSandbox/Saved, and is titled "game.db".
+
+
+The database contains the following tables:
+    account
+    actor\_bounding\_box
+    actor_position
+    buildable_health
+    building_instances
+    buildings
+    character_stats
+    characters
+    destruction_history
+    diplomacy
+    dw_settings
+    events
+    guilds
+    item_inventory
+    item_properties
+    mod_controllers
+    properties
+    purgescores
+    sqlite_sequence
+
+****************************************************************************************************
+Characters:
+    This tables contains all information on players who have created a character on the server. it contains the players Steam ID number, the unique character ID, the character name, level, guild, and other stats.
+
+    The ID field in this table is how ownership of objects and buildings are identified in other tables in the database, and is an easy way to identify which structures, placed items, and thralls belong to an individual player. This information will be useful if you want to copy character information or delete buildings placed by inactive players on your server.
+
+Account:
+    This table contains the Steam ID of players on the server. Exact purpose unknown.
+
+Actor_Position:
+    The coordinates of placed items, crafting stations, and thralls. Doors are listed in this table too, since they can be picked back up and placed back into inventory.
+
+    This table also lists the position of the very first foundation blocks placed for each new structure. The location, facing, and rotation of all other contiguous blocks attached to the first foundation block are apparently referenced from the starting position of this first block.
+
+    The Class column contains the file name of the element, which uses a mostly easy to read naming convention, such as a furnace being labelled BP\_PL\_CraftingStation\_Furnace\_C. This can be used to quickly find specific objects without having to look up the actual object Id's.
+
+Buildable_Health:
+    This table contains information on the structural health of every placed item that can be damaged in the game.
+
+    Each object has a unique object_id number in the first column. Building blocks that are connected share a single object id number that was assigned when the first foundation block was placed.
+
+    The second column instance_id is for each separate building block that the structure contains, starting with the first at zero, and increasing by one for each contiguous block. You will see the instance_id number repeated multiple times for the same single block because of the information contained in the third column Health_id.
+
+    The health_id column contains a listing for each separate ingredient that was used to craft the block or item, and is required to repair it. If an item has three ingredients, the health_id column will have three entries for that single block: 0, 1, and 2.
+
+    The template_id is the master object id of the crafting material used in the construction of the block, such as wood, stone, shaped wood, stonebrick, etc. These are the materials that must be used to repair the item.
+
+    The health_percentage (yes, it says ealth, not a typo) contains the percentage health of that block, with "1.0" being 100% health. Damaged blocks will show as any number less than 1.0, for example "0.867299616336823". There is a separate health_percentage entry for each crafting material in health_id.
+
+Building_Instances:
+    object\_id contains unique id's for every structure built in the game. These object\_id numbers are shared across other tables such as buildable\_health. This table building\_instances seems to contain only placed building blocks (foundations, walls, ceilings, etc), while buildable\_health contains entries for building blocks, plus other items like campfires, torches, and other placed items.
+
+    instance\_id works the same way as in buildable\_health, the first placed item is zero, and every extra connected block increases the count by one. These entries in the table are in the order they were added to the structure.
+
+    Class The path name of the file that contains the art elements used in the game. Due to the naming conventions used in the file name, it's quite easy to figure out what each block is; wall, wall with a window (frame), foundation, etc.
+
+    Transform1 and Transform2 believe these control the position and facing of each block, relative to the very first foundation block that was placed in the structure.
+
+    Building\_Flags - unknown purpose. Values of 0, 1, or 2
+
+Buildings:
+    A list of structures and placed items, and the players that created and own them
+
+    object\_id should correspond to the same object_id field in other tables.
+
+    owner\_id from the characters table.
+
+Character_Stats:
+    Char\_id contains unique id numbers for players and thralls. By checking the Characters table you can see which codes belong to player characters. The remaining id numbers are for any thralls that can be placed in the world, such as fighters, archers, performers, and bearers. Thralls that can only be placed in the thrall slots of crafting stations appear in different tables (we believe these types of thralls are simply handled as inventory objects).
+
+    Stat\_type - Unknown purpose. Values of 0 or 1. All players/thralls have exactly 8 lines with stat_type zero, Players have 4 entries with stat_type 1, Thralls have 7 entries with stat_type 1, but some will have 2 extra lines for a total of 9. These extra 2 database lines can appear and disappear and might be related to damage to the thrall, or some similar condition.
+
+    Stat_id - Still determining the meaning of the values, but below are the currently known stats. The values in the column stat\_id are not unique, so it necessary to look at the information in both columns stat\_type and stat\_id together as a pair.
+
+    Type ID
+    0 - 1 = Maximum health
+
+    0 - 4 = Player level
+
+    0 - 10 = thrall level, in the format of 1.0 to 4.0
+
+    0 - 16 = player encumbrance stat 0 - 17 = player strength stat
+
+Item_Inventory:
+    Item\_id This is the position of the storage slot associated with a container.
+
+    Owner\_id unique id for each container in the game; players, thralls, crafting stations, chests, etc.
+
+    Inv\_type 0 = Character's inventory (player or thrall) 1 = Equipped weapons and armor 2 = Items assigned to players's hotbar 3 = Learned crafting recipes (??) 4 = Inventories of containers, such as chests or crafting stations 5 = Unknown Values of 6, 7 and 8 are all linked to player ID, but their exact meaning is unknown
+
+    Template\_id the master object id for each type of item, that tells the game what it is; stone, putrid meat, medium gauntlets, wooden shield, Steel Pickaxe, etc.
+
+    Data - Hexadecimal information, which probably contains things like the quantity of items in a stack, durability, decay countdown for perishable items like food, etc.

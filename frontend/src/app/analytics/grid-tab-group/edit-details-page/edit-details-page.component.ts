@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpErrorResponse} from "@angular/common/http";
 import {isNumeric} from "rxjs/internal-compatibility";
-import {ErrorService} from "../../../errorHandler/error.service";
+import {ErrorService} from "../../../framework/errorHandler/error.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Constants} from "../../../utilities/constants";
 import {FormBuilder, FormGroup} from "@angular/forms";
