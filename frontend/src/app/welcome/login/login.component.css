@@ -6,6 +6,9 @@ body {
 }
 
 .login-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 500px;
   margin: 0 auto;
   padding: 24px;
@@ -13,8 +16,30 @@ body {
   background-color: #fff;
 }
 
-.register-link {
+.login-title {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.login-form {
   display: flex;
-  justify-content: center;
-  margin-top: 24px;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login-field {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.login-button {
+  margin-top: 16px;
+  width: 100%;
+}
+
+.register-link {
+  margin-top: 16px;
+  text-align: center;
 }
