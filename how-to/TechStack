@@ -150,7 +150,6 @@ Procedures
 
     g. Run the MSI file to install OpenJDK for Windows
 
-
     h. Set your JAVA_HOME environment variable to be c:\progra~1\Java\jdk1.8.0_91
        (or where ever your Java JDK was installed)
        1) Type-in env in the Windows search box (near the start button)
@@ -465,6 +464,7 @@ Procedures
 
          b. Run the standalone putty.exe file from your desktop (or where ever you saved it)
 
+
 13. Download & Install Elasticsearch
 
     Procedures
@@ -480,7 +480,6 @@ Procedures
         c) click "New..."
                   Variable name:  JAVA_HOME
                   Variable value: c:\progra~1\Java\jdk1.8.0_91
-
 
      2. Create a directory called "c:\tools"
 
@@ -577,7 +576,6 @@ Procedures
             [2021-02-25T00:04:08,299][INFO ][o.e.h.AbstractHttpServerTransport] [DESKTOP-4KHMS17] publish_address {127.0.0.1:9201}, bound_addresses {127.0.0.1:9201}, {[::1]:9201}
             [2021-02-25T00:04:08,300][INFO ][o.e.n.Node               ] [DESKTOP-4KHMS17] started
 
-
         b. Verify it is up
            1) Open a web browser
            2) Connect to http://localhost:9200
@@ -603,9 +601,6 @@ Procedures
 
 
         c. Press Control-C to stop it
-
-
-
 
      6. Create a Windows Service to startup ElasticSearch
         a. Download & Install the Non-Sucking Service Manager here https://nssm.cc
@@ -637,7 +632,6 @@ Procedures
 
                Press "Install Service"
 
-
      7. Start your ElasticSearch service using services.msc
         a. Run the Services app
         b. Look for elasticsearch-7.7
@@ -658,12 +652,10 @@ Procedures
            NOTE:  Make sure you remove the # comment symbol in front of it
                   Make sure there is a single space after the colon
 
-
      9. Restart the ElasticSearch service
         a. Open the window service
         b. Go to your elasticsearch service
         c. Right-click -> Start
-
 
     10. Verify it is listening on port 9201
         a. Open a browser
