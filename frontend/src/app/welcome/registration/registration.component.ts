@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegistrationDto } from '../../models/registration-dto';
 import { UserService } from '../../services/user.service';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +16,7 @@ export class RegistrationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private messageService: MessageService,
     private router: Router
   ) { }
 
@@ -76,7 +78,7 @@ export class RegistrationComponent implements OnInit {
     // Invoke the user service to register a new user
     this.userService.registerUser(registrationDto).subscribe(response => {
       // Registration succeeded
-      alert('Registration succeeded!');
+      this.messageService.showSuccessMessage('Registration succeeded!');
 
       // Redirect to login page
       this.router.navigate(['/page/login']).then(() => {

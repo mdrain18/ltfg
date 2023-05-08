@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginDto } from '../../models/login-dto';
-import { UserService } from '../../services/user.service';
-import { MessageService } from '../../services/message.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {LoginDto} from '../../models/login-dto';
+import {UserService} from '../../services/user.service';
+import {MessageService} from '../../services/message.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +19,8 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private messageService: MessageService,
     private router: Router
-  ) { }
+  ) {
+  }
 
   public ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -40,7 +41,8 @@ export class LoginComponent implements OnInit {
     loginDto.password = this.loginForm.controls.password.value;
 
     // Call the validateUserLogin method in the UserService to validate the login credentials
-    this.userService.validateUserLogin(loginDto).subscribe(response => {
+    this.userService.validateUserLogin(loginDto).subscribe(
+      response => {
         // REST call succeeded
         this.messageService.showSuccessMessage("Successful Login.");
         // Redirect to login page
@@ -49,10 +51,16 @@ export class LoginComponent implements OnInit {
           console.log('Navigation succeeded');
         });
       },
-    ).add(  () => {
-      // REST call finally block
-      console.log('REST call finally block');
-    });
-  }
+      error => {
+        // Handle error here
+        if (error.status === 400) {
+          // Bad Request error
+          this.messageService.showErrorMessage("Login failed.");
+        } else {
+          // Other error
+          console.log('An error occurred while logging in');
+        }
+      });
 
+  }
 }
