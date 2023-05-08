@@ -1,6 +1,7 @@
 package com.lessons.services;
 
 import com.lessons.models.*;
+import com.lessons.utilities.PasswordEncrypter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,11 +28,10 @@ public class ReportService {
     @Resource
     private DatabaseService databaseService;
 
-
     /**
      * Attempt to add a report record to the database
      *
-     * @param addReportDTO  Pass-in model object that holds all the report fields
+     * @param addReportDTO Pass-in model object that holds all the report fields
      */
     public void addReport(AddReportDTO addReportDTO) {
         logger.debug("addReport() started.");
@@ -39,11 +40,11 @@ public class ReportService {
                 "values(:id, :version, :name, :priority, :start_date, :end_date)";
 
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("id", databaseService.getNextId() );
+        paramMap.put("id", databaseService.getNextId());
         paramMap.put("version", databaseService.getStartingVersionValue());
         paramMap.put("name", addReportDTO.getName());
         paramMap.put("priority", addReportDTO.getPriority());
-        paramMap.put("start_date",addReportDTO.getStartDate());
+        paramMap.put("start_date", addReportDTO.getStartDate());
         paramMap.put("end_date", addReportDTO.getEndDate());
 
         NamedParameterJdbcTemplate np = new NamedParameterJdbcTemplate(this.dataSource);
@@ -56,6 +57,59 @@ public class ReportService {
         }
 
         logger.debug("addReport() finished.");
+    }
+
+
+    /**
+     * Attempt to add a report record to the database
+     *
+     * @param newUser Pass-in model object that holds all the report fields
+     */
+    public void addUser(RegisterUser newUser) throws NoSuchAlgorithmException {
+        logger.debug("addReport() started.");
+
+        String sql = "INSERT INTO ltfg.users (email, full_name, user_name, password) VALUES (:email, :fullName, :userName, :password)";
+
+        // Create the full name from the first and last
+        String fullName = newUser.getFirstName() + " " + newUser.getLastName();
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("email", newUser.getEmail());
+        paramMap.put("fullName", fullName);
+        paramMap.put("userName", newUser.getUserName());
+        paramMap.put("password", PasswordEncrypter.hashPassword(newUser.getPassword()));
+
+        NamedParameterJdbcTemplate np = new NamedParameterJdbcTemplate(this.dataSource);
+
+        // Execute the SQL
+        int rowsCreated = np.update(sql, paramMap);
+
+        if (rowsCreated != 1) {
+            throw new RuntimeException("Critical error in addUser():  I expected to create one database record, but did not.");
+        }
+
+        logger.debug("addUser() finished.");
+    }
+
+
+    /**
+     * @return a List of all Users (as a list of GetAllUsersDTO objects)
+     */
+    public Boolean validateLogin(ValidateUsersDTO validateUser) throws NoSuchAlgorithmException {
+        logger.debug("validateLogin() started.");
+
+        String sql = "SELECT password FROM ltfg.users\n" +
+                "WHERE user_name = ?;";
+
+        JdbcTemplate jt = new JdbcTemplate(this.dataSource);
+        SqlRowSet rs = jt.queryForRowSet(sql, validateUser.getUsername());
+        if (rs.next()) {
+            // I found the record in the database, now we check the password
+            boolean isMatch = PasswordEncrypter.comparePasswords(validateUser.getPassword(), rs.getString("password"));
+            return isMatch;
+        } else {
+            // I did not find this username in the database.
+            return false;
+        }
     }
 
 
@@ -158,10 +212,10 @@ public class ReportService {
         //        If a report record has null  for priority, then priority is null
         //        If a report record has a priority it, then get the name for that priority
         String sql = "select r.id, r.name, l.name as priority, \n" +
-                     "       to_char(start_date, 'mm/dd/yyyy') as start_date, to_char(end_date, 'mm/dd/yyyy') as end_date \n" +
-                     "from ltfg.reports r \n" +
-                     "LEFT JOIN ltfg.lookup l on (r.priority = l.id) \n" +
-                     "order by id";
+                "       to_char(start_date, 'mm/dd/yyyy') as start_date, to_char(end_date, 'mm/dd/yyyy') as end_date \n" +
+                "from ltfg.reports r \n" +
+                "LEFT JOIN ltfg.lookup l on (r.priority = l.id) \n" +
+                "order by id";
 
         // Use the rowMapper to convert the results into a list of GetReportDTO objects
         BeanPropertyRowMapper<GetReportDTO> rowMapper = new BeanPropertyRowMapper<>(GetReportDTO.class);
@@ -186,14 +240,24 @@ public class ReportService {
         String sql = "select id from ltfg.reports where id=?";
         JdbcTemplate jt = new JdbcTemplate(this.dataSource);
         SqlRowSet rs = jt.queryForRowSet(sql, aReportId);
-        if (rs.next() ) {
-            // I found the record in the database.  So, return true.
-            return true;
-        }
-        else {
-            // I did not find this ID in the database.  So, return false.
+        return rs.next();
+    }
+
+
+    /**
+     * @param aUsername holds the ID that uniquely identifies the user in the database
+     * @return TRUE if the username is found in the users table.  False otherwise.
+     */
+    public boolean doesUsernameExist(String aUsername) {
+        if (aUsername == null) {
             return false;
         }
+
+        String sql = "SELECT user_name FROM ltfg.users\n" +
+                "WHERE user_name = ?;";
+        JdbcTemplate jt = new JdbcTemplate(this.dataSource);
+        SqlRowSet rs = jt.queryForRowSet(sql, aUsername);
+        return rs.next();
     }
 
 
@@ -208,9 +272,9 @@ public class ReportService {
 
         // Create a parameter map
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("name",     aUpdateReportDTO.getReportName() );
-        paramMap.put("priority", aUpdateReportDTO.getPriority() );
-        paramMap.put("id",       aUpdateReportDTO.getId() );
+        paramMap.put("name", aUpdateReportDTO.getReportName());
+        paramMap.put("priority", aUpdateReportDTO.getPriority());
+        paramMap.put("id", aUpdateReportDTO.getId());
 
         // Execute the SQL and get the number of rows affected
         NamedParameterJdbcTemplate np = new NamedParameterJdbcTemplate(this.dataSource);
@@ -233,7 +297,7 @@ public class ReportService {
         JdbcTemplate jt = new JdbcTemplate(this.dataSource);
         SqlRowSet rs = jt.queryForRowSet(sql, aReportId);
 
-        if (! rs.next() ) {
+        if (!rs.next()) {
             throw new RuntimeException("Error in getInfoForUpdateReport():  I did not find any records in the database for this reportId " + aReportId);
         }
 

@@ -79,7 +79,7 @@ export class RegistrationComponent implements OnInit {
       alert('Registration succeeded!');
 
       // Redirect to login page
-      this.router.navigate(['/login']).then(() => {
+      this.router.navigate(['/page/login']).then(() => {
         // Navigation succeeded
         console.log('Navigation succeeded');
       });

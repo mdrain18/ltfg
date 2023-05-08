@@ -40,27 +40,19 @@ export class LoginComponent implements OnInit {
     loginDto.password = this.loginForm.controls.password.value;
 
     // Call the validateUserLogin method in the UserService to validate the login credentials
-    this.userService.validateUserLogin(loginDto).subscribe(
-      (result) => {
-        if (result) {
-          // Show success message
-          this.messageService.showSuccessMessage('Successful Login');
-
-          // Redirect to the welcome page
-          this.router.navigate(['/welcome']).then(() => {
-            // Navigation succeeded
-            console.log('Navigation succeeded');
-          });
-        } else {
-          // Show error message
-          this.messageService.showErrorMessage('Invalid username or password')
-        }
+    this.userService.validateUserLogin(loginDto).subscribe(response => {
+        // REST call succeeded
+        this.messageService.showSuccessMessage("Successful Login.");
+        // Redirect to login page
+        this.router.navigate(['/page/welcome']).then(() => {
+          // Navigation succeeded
+          console.log('Navigation succeeded');
+        });
       },
-      (error) => {
-        // Show error message
-        alert('Error occurred while logging in');
-      }
-    );
+    ).add(  () => {
+      // REST call finally block
+      console.log('REST call finally block');
+    });
   }
 
 }

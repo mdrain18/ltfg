@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @Controller("com.lessons.controllers.ReportController")
@@ -59,7 +59,6 @@ public class ReportController {
 
     /**
      * GET /api/reports/allusers
-     *
      * @return JSON holding a list of users objects and a 200 status code
      */
     @RequestMapping(value = "/api/reports/allusers", method = RequestMethod.GET, produces = "application/json")
@@ -77,7 +76,6 @@ public class ReportController {
 
     /**
      * GET /api/reports/characters
-     *
      * @return JSON holding a list of character objects and a 200 status code
      */
     @RequestMapping(value = "/api/reports/characters", method = RequestMethod.GET, produces = "application/json")
@@ -94,7 +92,6 @@ public class ReportController {
 
     /**
      * GET /api/reports/all
-     *
      * @return JSON holding a list of report objects and a 200 status code
      */
     @RequestMapping(value = "/api/reports/all", method = RequestMethod.GET, produces = "application/json")
@@ -108,6 +105,90 @@ public class ReportController {
         // NOTE:  Jackson will convert the list of java objects to JSON for us
         return ResponseEntity.status(HttpStatus.OK).body(listOfReports);
     }
+
+
+    /**
+     * POST /api/user/val
+     * Update the Report record in the system
+     * @return 200 status code if the update worked
+     */
+    @RequestMapping(value = "/api/user/val", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<?> validateLogin(@RequestBody ValidateUsersDTO validateUser) throws NoSuchAlgorithmException {
+        logger.debug("validateLogin() started.");
+
+        // Validate if the username and password are correct
+        Boolean response = reportService.validateLogin(validateUser);
+
+        // Verify that required parameters were passed-in
+        if (StringUtils.isBlank(validateUser.getUsername())) {
+            // The username was not passed-in
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("The username is blank.  This is an invalid parameter.");
+        }
+        else if (StringUtils.isBlank(validateUser.getPassword())) {
+            // The password is blank
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("The password is blank.  This is an invalid parameter.");
+        } else if (!response) {
+            // There was a mismatch between the username and password
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("The username or password is incorrect.");
+        }
+
+        // Return only a 200 status code
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.TEXT_PLAIN)
+                .body("");
+    }
+
+
+    /**
+     * POST /api/user/register
+     * Update the Report record in the system
+     * @return 200 status code if the update worked
+     */
+    @RequestMapping(value = "/api/user/register", method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity<?> registerUser(@RequestBody RegisterUser aSingleUser) throws NoSuchAlgorithmException {
+        logger.debug("registerUser() started.");
+
+        // Verify that required parameters were passed-in
+        if (StringUtils.isBlank(aSingleUser.getUserName())) {
+            // The Username was not passed-in
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("The username is null.  This is an invalid parameter.");
+        }
+        else if (StringUtils.isBlank(aSingleUser.getEmail())) {
+            // The email is blank
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("The report name is blank.  This is an invalid parameter.");
+        }
+        else if (StringUtils.isBlank(aSingleUser.getPassword())) {
+            // The password is blank
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("The report name is blank.  This is an invalid parameter.");
+        }
+        else if (reportService.doesUsernameExist(aSingleUser.getUserName() ) ) {
+            // The report ID was not found in the system
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .contentType(MediaType.TEXT_PLAIN)
+                    .body("Username already exists.");
+        }
+
+        // Update the report record
+        reportService.addUser(aSingleUser);
+
+        // Return only a 200 status code
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.TEXT_PLAIN)
+                .body("");
+    }
+
 
     /**
      * POST /api/reports/update/set

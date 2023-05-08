@@ -113,34 +113,24 @@ export class UserService {
       }));
   }
 
-  public validateUserLogin(loginDto: LoginDto): Observable<boolean> {
+  public validateUserLogin(aData: LoginDto): Observable<string> {
     const restUrl = `${environment.baseUrl}/api/user/val`;
 
-    return this.httpClient.post<boolean>(restUrl, loginDto).pipe(
-      map((result: boolean) => {
-        return result;
-      }),
-      catchError(err => {
-        console.error('There was an error validating user info. Error is ', err);
-
-        return EMPTY;
-      })
-    );
+    // Return an observable
+    return this.httpClient.post(restUrl, aData, {responseType: 'text'});
   }
 
-  public registerUser(registrationDto: RegistrationDto): Observable<boolean> {
-    const restUrl = `${environment.baseUrl}/api/user/register`;
 
-    return this.httpClient.post<boolean>(restUrl, registrationDto).pipe(
-      map((result: boolean) => {
-        return result;
-      }),
-      catchError(err => {
-        console.error('There was an error registering user info. Error is ', err);
+  /*
+   * Returns an observable with nothing
+   * NOTE:  This method is used by the "Registration" page to create a new user
+   */
+  public registerUser(aData: RegistrationDto): Observable<string> {
+    // Construct the URL of the REST call
+    const restUrl = environment.baseUrl + '/api/user/register';
 
-        return EMPTY;
-      })
-    );
+    // Return an observable
+    return this.httpClient.post(restUrl, aData, {responseType: 'text'});
   }
 
 }
