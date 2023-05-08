@@ -7,6 +7,7 @@ import {GetReportDTO} from "../models/get-report-dto";
 import {GetUpdateReportDTO} from "../models/get-update-report-dto";
 import {SetUpdateReportDTO} from "../models/set-update-report-dto";
 import {GetCharactersDTO} from "../models/get-characters-dto";
+import {GetAllUsersDTO} from "../models/get-all-users-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,18 @@ export class ReportService {
 
     // Return an observable
     return this.httpClient.get <GetReportDTO[]>(restUrl);
+  }
+
+
+  /*
+   * Returns an observable that holds an array of GetCharactersDTO objects
+   */
+  public getAllUsers(): Observable<GetAllUsersDTO[]> {
+    // Construct the URL of the REST call
+    const restUrl = environment.baseUrl + '/api/reports/allusers';
+
+    // Return an observable
+    return this.httpClient.get <GetAllUsersDTO[]>(restUrl);
   }
 
 

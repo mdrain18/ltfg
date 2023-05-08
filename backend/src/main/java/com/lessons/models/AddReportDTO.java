@@ -1,4 +1,3 @@
-
 package com.lessons.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

@@ -5,8 +5,8 @@
     <div fxFlex fxLayout="row" fxLayoutGap="0">
 
       <!-- Left Side of the Top Row -->
-      <div fxFlex fxLayoutAlign="left center" fxLayout="row" fxLayoutGap="0">
-        <h1 class="mat-h1">Grid Page</h1>
+      <div fxFlex fxLayout="row" fxLayoutAlign="left center" fxLayoutGap="0">
+        <h1 class="mat-h1">PvP Page **Coming Soon**</h1>
       </div>
 
 
@@ -17,50 +17,44 @@
 
     </div>  <!-- End of top row -->
 
-
-
     <!-- Start of the "button row" -->
-    <div fxFlex  fxLayout="row" fxLayoutGap="5px">
+    <div fxFlex fxLayout="row" fxLayoutGap="5px">
 
       <!-- Left Side of the "button row"  -->
 
       <!-- Reset Button -->
-      <div fxFlex fxLayoutAlign="left end" fxLayout="row" fxLayoutGap="0">
-        <button mat-stroked-button type="button" color="primary" (click)="this.resetGrid()" title="Reset the Grid">
+      <div fxFlex fxLayout="row" fxLayoutAlign="left end" fxLayoutGap="0">
+        <button (click)="this.resetGrid()" color="primary" mat-stroked-button title="Reset the Grid" type="button">
           Reset
         </button>
       </div>
 
-
       <!-- Center of the "button row"  -->
-      <div fxFlex fxLayoutAlign="center center" fxLayout="row" fxLayoutGap="0">
+      <div fxFlex fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="0">
 
         <div [ngClass]="{   'light':   this.currentTheme.isLightMode == true,
                              'dark':    this.currentTheme.isLightMode == false
                 }">
 
-          <div   [ngClass]="{   'light searchBoxWrapperValid   fa-border':  this.isValidQuery == true,
+          <div [ngClass]="{   'light searchBoxWrapperValid   fa-border':  this.isValidQuery == true,
                                  'dark searchBoxWrapperInvalid fa-border':  this.isValidQuery == false }">
 
             <!-- Search Box -->
-            <input matInput type="text"  #searchBox [(ngModel)]="this.rawSearchQuery" (keyup.enter)="this.runSearch()"
-                   [ngClass]="{   'searchBoxValid':   this.isValidQuery == true,
-                                  'searchBoxInvalid': this.isValidQuery == false } "
-                   placeholder="Enter Criteria..."
+            <input #searchBox (keyup.enter)="this.runSearch()" [(ngModel)]="this.rawSearchQuery" [ngClass]="{   'searchBoxValid':   this.isValidQuery == true,
+                                  'searchBoxInvalid': this.isValidQuery == false } " aria-label="search box"
                    autocomplete="off"
-                   aria-label="search box" />
+                   matInput
+                   placeholder="Enter Criteria..."
+                   type="text"/>
 
             <!-- Search Icon -->
-            <span class="searchBoxIcon" (click)="this.runSearch()">
+            <span (click)="this.runSearch()" class="searchBoxIcon">
                   <i class="fa fa-search"></i>
                 </span>
           </div>
 
         </div>
       </div>
-
-
-
 
       <!-- Right Side of the "button row" -->
       <div fxFlex fxLayoutAlign="end end">
@@ -71,10 +65,8 @@
 
     </div>  <!-- End of "button row" -->
 
-
-
     <!-- Start of the 3rd row -->
-    <div fxFlex  fxLayout="column" fxLayoutGap="0">
+    <div fxFlex fxLayout="column" fxLayoutGap="0">
 
       <mat-card class="mat-elevation-z4" style="margin: 0; padding: 0">
         <mat-card-content>
@@ -84,17 +76,17 @@
 
             <!-- AG-Grid -->
             <ag-grid-angular
-              style="width: 100%; height: 100%"
+              (firstDataRendered)="this.firstDataRendered()"
+              (gridReady)="this.onGridReady($event)"
+              [columnDefs]="this.columnDefs"
+              [defaultColDef]="this.defaultColDefs"
+              [frameworkComponents]="this.frameworkComponents"
+              [gridOptions]="this.gridOptions"
               [ngClass]="{   'ag-theme-alpine':       this.currentTheme.isLightMode == true,
                              'ag-theme-alpine-dark':  this.currentTheme.isLightMode == false
                          }"
               [rowData]="this.rowData"
-              [defaultColDef]="this.defaultColDefs"
-              [columnDefs]="this.columnDefs"
-              [gridOptions]="this.gridOptions"
-              [frameworkComponents]="this.frameworkComponents"
-              (firstDataRendered)="this.firstDataRendered()"
-              (gridReady)="this.onGridReady($event)">
+              style="width: 100%; height: 100%">
             </ag-grid-angular>
 
           </div>

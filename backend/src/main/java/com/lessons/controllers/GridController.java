@@ -257,7 +257,7 @@ public class GridController {
                     .body("The endRow must be greater than the startRow.");
         }
 
-        // Change the sort field from "priority" to "priority.sort"  (so the sort is case insensitive -- see the mapping)
+        // Change the sort field from "priority" to "priority.sort"  (so the sort is case-insensitive -- see the mapping)
         changeSortFieldToUseElasticFieldsForSorting(aGridRequestDTO, "id");
 
         // Set Default sorting
@@ -290,7 +290,7 @@ public class GridController {
      * <p>
      * ASSUMPTION:  Every query must have a sort field set so that the "infinity scroll" works
      * So, every query sent to ElasticSearch must be sorted on something -- either the "score" for sorting on relevancy or some sort field
-     * If no sort field is provided, the the ES query will be sorted by the default ID field
+     * If no sort field is provided, the ES query will be sorted by the default ID field
      *
      * @param aGridRequestDTO holds information about the grid request
      */

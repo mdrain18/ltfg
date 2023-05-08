@@ -279,20 +279,20 @@ export class ServerSideGridComponent implements OnInit, OnDestroy, AfterViewInit
       checkboxSelection: true
     },
     {
-      headerName: 'Report Name',
+      headerName: 'Clan Name',
       field: 'display_name',
       filter: 'agTextColumnFilter',
       filterParams: this.textFilterParams,
       cellClass: 'grid-text-cell-format'
     },
     {
-      headerName: 'Priority',
+      headerName: 'Total Kills',
       field: 'priority',
       filter: 'agTextColumnFilter',
       filterParams: this.textFilterParams,
     },
     {
-      headerName: 'Description',
+      headerName: 'Rank',
       field: 'description',
       sortable: false,                      // The description field is not sortable
       filter: 'agTextColumnFilter',

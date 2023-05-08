@@ -58,6 +58,32 @@ public class ReportService {
         logger.debug("addReport() finished.");
     }
 
+
+    /**
+     * @return a List of all Users (as a list of GetAllUsersDTO objects)
+     */
+    public List<GetAllUsersDTO> getAllUsers() {
+        logger.debug("getAllUsers() started.");
+        // Construct the SQL to get all users
+        String sql = "SELECT\n" +
+                "    id AS id, version AS version, email AS email, account_created AS accountCreated,\n" +
+                "    last_login_date AS lastLoginDate, full_name AS fullName, user_name AS userName,\n" +
+                "    password AS password, is_locked AS isLocked\n" +
+                "FROM\n" +
+                "    ltfg.users";
+
+        // Use the rowMapper to convert the results into a list of GetAllUsersDTO objects
+        BeanPropertyRowMapper<GetAllUsersDTO> rowMapper = new BeanPropertyRowMapper<>(GetAllUsersDTO.class);
+
+        // Execute the SQL and Convert the results into a list of GetAllUsersDTO objects
+        JdbcTemplate jt = new JdbcTemplate(this.dataSource);
+        List<GetAllUsersDTO> listOfUsers = jt.query(sql, rowMapper);
+
+        // Return the list of GetAllUsersDTO objects
+        return listOfUsers;
+    }
+
+
     /**
      * @return a List of all Characters (as a list of GetCharactersDTO objects)
      */
@@ -78,11 +104,11 @@ public class ReportService {
         // Use the rowMapper to convert the results into a list of GetCharactersDTO objects
         BeanPropertyRowMapper<GetCharactersDTO> rowMapper = new BeanPropertyRowMapper<>(GetCharactersDTO.class);
 
-        // Execute the SQL and Convert the results into a list of GetReportDTO objects
+        // Execute the SQL and Convert the results into a list of GetCharactersDTO objects
         JdbcTemplate jt = new JdbcTemplate(this.dataSource);
         List<GetCharactersDTO> listOfCharacters = jt.query(sql, rowMapper);
 
-        // Return the list of GetReportDTO objects
+        // Return the list of GetCharactersDTO objects
         return listOfCharacters;
     }
 

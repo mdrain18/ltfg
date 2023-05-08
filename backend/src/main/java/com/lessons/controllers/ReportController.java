@@ -56,6 +56,25 @@ public class ReportController {
         return ResponseEntity.status(HttpStatus.OK).body("");
     }
 
+
+    /**
+     * GET /api/reports/allusers
+     *
+     * @return JSON holding a list of users objects and a 200 status code
+     */
+    @RequestMapping(value = "/api/reports/allusers", method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity<?> getAllUsers()  {
+        logger.debug("getAllCharacters() started.");
+
+        // Adding a character record to the system
+        List<GetAllUsersDTO> listOfUsers = reportService.getAllUsers();
+
+        // Return the list of characters objects back to the front-end
+        // NOTE:  Jackson will convert the list of java objects to JSON for us
+        return ResponseEntity.status(HttpStatus.OK).body(listOfUsers);
+    }
+
+
     /**
      * GET /api/reports/characters
      *

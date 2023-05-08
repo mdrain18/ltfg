@@ -5,7 +5,6 @@ import {GridGetRowsResponseDTO} from "../models/grid/grid-get-rows-response-dto"
 import {environment} from "../../environments/environment";
 import {GridGetRowsRequestDTO} from "../models/grid/grid-get-rows-request-dto";
 import {HttpClient} from "@angular/common/http";
-import {GetCharactersDTO} from "../models/get-characters-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +46,16 @@ export class GridService {
     return of(data);
   }
 
+  /*
+   * This is the REST endpoint used for the getAllUsers
+   */
+  public getAllUsers(aGridGetRowsRequestDTO: GridGetRowsRequestDTO): Observable<GridGetRowsResponseDTO> {
+    // Construct the URL of the REST call
+    const restUrl = environment.baseUrl + '/api/grid/getAllUsers';
+
+    // Use a POST call to send a JSON body of info
+    return this.httpClient.post <GridGetRowsResponseDTO> (restUrl, aGridGetRowsRequestDTO, {} );
+  }
 
   /*
    * This is the REST endpoint used for the server-side ag-grid
@@ -60,7 +69,7 @@ export class GridService {
   }
 
   /*
-   * This is the REST endpoint used for the server-side ag-grid
+   * This is the REST endpoint used for the getCharacterData
    */
   public getCharacterData(aGridGetRowsRequestDTO: GridGetRowsRequestDTO): Observable<GridGetRowsResponseDTO> {
     // Construct the URL of the REST call
@@ -71,7 +80,7 @@ export class GridService {
   }
 
   /*
-   * This is the REST endpoint used for the server-side ag-grid
+   * This is the REST endpoint used for the getClanData
    */
   public getClanData(aGridGetRowsRequestDTO: GridGetRowsRequestDTO): Observable<GridGetRowsResponseDTO> {
     // Construct the URL of the REST call

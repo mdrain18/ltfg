@@ -159,7 +159,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
           // Render guageChart1
           Highcharts.chart('gaugeChart1', Highcharts.merge(this.gaugeChartOptions, {
             title: {
-              text: 'Total Units',
+              text: 'PvP Server',
               y: 70
             },
             yAxis: {
@@ -170,7 +170,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
               ],
             },
             series: [{
-              name: 'Total Units in System',   // smaller label
+              name: 'Current Online Players',   // smaller label
               data: [6],
               dataLabels: {
                 format:
@@ -183,12 +183,10 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
           }));
 
-
-
           // Render guageChart2
           Highcharts.chart('gaugeChart2', Highcharts.merge(this.gaugeChartOptions, {
             title: {
-              text: 'Pending Units',
+              text: 'The Underworld',
               y: 70
             },
             yAxis: {
@@ -199,7 +197,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
               ],
             },
             series: [{
-              name: 'Total Pending Units',
+              name: 'Current Online Players',
               data: [15],
               dataLabels: {
                 format:
@@ -215,7 +213,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
           // Render guageChart3
           Highcharts.chart('gaugeChart3', Highcharts.merge(this.gaugeChartOptions, {
             title: {
-              text: 'Work in Progress Units',
+              text: 'Exiles PvE',
               y: 70
             },
             yAxis: {
@@ -226,7 +224,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
               ],
             },
             series: [{
-              name: 'Total Work in Progress Units',
+              name: 'Current Online Players',
               data: [33],
               dataLabels: {
                 format:

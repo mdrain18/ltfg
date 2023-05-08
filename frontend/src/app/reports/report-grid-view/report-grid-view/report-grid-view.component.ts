@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import "ag-grid-enterprise";
-import {GridService} from "../../../services/grid.service";
-import {ReportRowDataDTO} from "../../../models/report-row-data-dto";
+import {ReportService} from "../../../services/report.service";
+import {GetAllUsersDTO} from "../../../models/get-all-users-dto";
 import {ColumnApi, GridApi, GridOptions, ICellRendererParams} from "ag-grid-community";
 import {PriorityCellCustomRendererComponent} from "../priority-cell-custom-renderer/priority-cell-custom-renderer.component";
 import {ReportGridActionCellRendererComponent} from "../report-grid-action-cell-renderer/report-grid-action-cell-renderer.component";
@@ -104,28 +104,42 @@ export class ReportGridViewComponent implements OnInit, OnDestroy {
       checkboxSelection: true
     },
     {
-      field: 'name',
+      field: 'email',
       cellClass: 'grid-text-cell-format',
       sortable: true,
       resizable: true,
       filter: 'agTextColumnFilter'
     },
     {
-      field: 'priority',
+      field: 'fullName',
       cellRenderer: 'priorityCellRenderer',
       sortable: true,
       resizable: true,
       filter: 'agTextColumnFilter'
     },
     {
-      field: 'start_date',
+      field: 'userName',
       cellClass: 'grid-text-cell-format',
       sortable: true,
       resizable: true,
       filter: 'agTextColumnFilter'
     },
     {
-      field: 'end_date',
+      field: 'accountCreated',
+      cellClass: 'grid-text-cell-format',
+      sortable: true,
+      resizable: true,
+      filter: 'agTextColumnFilter'
+    },
+    {
+      field: 'lastLoginDate',
+      cellClass: 'grid-text-cell-format',
+      sortable: true,
+      resizable: true,
+      filter: 'agTextColumnFilter'
+    },
+    {
+      field: 'isLocked',
       cellClass: 'grid-text-cell-format',
       sortable: true,
       resizable: true,
@@ -140,13 +154,13 @@ export class ReportGridViewComponent implements OnInit, OnDestroy {
     actionCellRenderer: ReportGridActionCellRendererComponent
   };
 
-  public  rowData: ReportRowDataDTO[];
+  public  rowData: GetAllUsersDTO[];
   private gridApi: GridApi;
   private gridColumnApi: ColumnApi;
   public  totalRowsSelected: number;
   public  updateButtonLabel: string;
 
-  constructor(private gridService: GridService,
+  constructor(private reportService: ReportService,
               private preferenceService: PreferenceService,
               private matDialog: MatDialog,
               private themeService: ThemeService) {}
@@ -236,7 +250,7 @@ export class ReportGridViewComponent implements OnInit, OnDestroy {
     this.gridApi.showLoadingOverlay();
 
     // Invoke a REST call to get data for the initial page load
-    this.gridService.getReportData().subscribe((aData: ReportRowDataDTO[]) => {
+    this.reportService.getAllUsers().subscribe((aData: GetAllUsersDTO[]) => {
       // We got data from the REST call
 
       // Put the data into the grid
@@ -264,7 +278,6 @@ export class ReportGridViewComponent implements OnInit, OnDestroy {
     });
 
   }  // end of reloadPage()
-
 
 
   public openDeleteDialog(params: ICellRendererParams): void {
@@ -301,7 +314,7 @@ export class ReportGridViewComponent implements OnInit, OnDestroy {
     let selectedReportIds: number[] = [];
 
     // Loop through the array of selected rows and add the selected ids to the list
-    this.gridApi.getSelectedRows().forEach((row: ReportRowDataDTO) => {
+    this.gridApi.getSelectedRows().forEach((row: GetAllUsersDTO) => {
       selectedReportIds.push(row.id);
     });
 

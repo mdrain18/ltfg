@@ -1,9 +1,7 @@
 <div style="padding: 5px">
   <div [ngClass]="{
-					'priority-low-color':      this.params.data.priority == 'low',
-          'priority-medium-color':   this.params.data.priority == 'medium',
-          'priority-high-color':     this.params.data.priority == 'high',
-          'priority-critical-color': this.params.data.priority == 'critical'
+					'priority-low-color':      this.params.data.priority == 'Unlock',
+          'priority-critical-color': this.params.data.priority == 'Lock'
         }">
     {{params.value}}
   </div>
