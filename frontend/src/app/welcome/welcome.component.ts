@@ -176,7 +176,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
                 format:
                   '<div style="text-align:center">' +
                   '<span style="font-size:25px">{y}</span><br/>' +
-                  '<span style="font-size:12px;opacity:0.4">Total Units in System</span>' +
+                  '<span style="font-size:12px;opacity:0.4">Current Online Players</span>' +
                   '</div>'
               }
             }]
@@ -203,7 +203,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
                 format:
                   '<div style="text-align:center">' +
                   '<span style="font-size:25px">{y}</span><br/>' +
-                  '<span style="font-size:12px;opacity:0.4">Total Pending Units</span>' +
+                  '<span style="font-size:12px;opacity:0.4">Current Online Players</span>' +
                   '</div>'
               }
             }]
@@ -230,7 +230,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
                 format:
                   '<div style="text-align:center">' +
                   '<span style="font-size:25px">{y}</span><br/>' +
-                  '<span style="font-size:12px;opacity:0.4">Total Work in Progress Units</span>' +
+                  '<span style="font-size:12px;opacity:0.4">Current Online Players</span>' +
                   '</div>'
               }
             }]
