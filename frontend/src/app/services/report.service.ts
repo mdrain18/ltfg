@@ -37,18 +37,6 @@ export class ReportService {
 
 
   /*
-   * Returns an observable that holds an array of GetReportDTO objects
-   */
-  public getAllReports(): Observable<GetReportDTO[]> {
-    // Construct the URL of the REST call
-    const restUrl = environment.baseUrl + '/api/reports/all';
-
-    // Return an observable
-    return this.httpClient.get <GetReportDTO[]>(restUrl);
-  }
-
-
-  /*
    * Returns an observable that holds an array of GetCharactersDTO objects
    */
   public getAllUsers(): Observable<GetAllUsersDTO[]> {

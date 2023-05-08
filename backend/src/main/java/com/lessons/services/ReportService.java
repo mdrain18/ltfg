@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,59 +56,6 @@ public class ReportService {
         }
 
         logger.debug("addReport() finished.");
-    }
-
-
-    /**
-     * Attempt to add a report record to the database
-     *
-     * @param newUser Pass-in model object that holds all the report fields
-     */
-    public void addUser(RegisterUser newUser) throws NoSuchAlgorithmException {
-        logger.debug("addReport() started.");
-
-        String sql = "INSERT INTO ltfg.users (email, full_name, user_name, password) VALUES (:email, :fullName, :userName, :password)";
-
-        // Create the full name from the first and last
-        String fullName = newUser.getFirstName() + " " + newUser.getLastName();
-        Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("email", newUser.getEmail());
-        paramMap.put("fullName", fullName);
-        paramMap.put("userName", newUser.getUserName());
-        paramMap.put("password", PasswordEncrypter.hashPassword(newUser.getPassword()));
-
-        NamedParameterJdbcTemplate np = new NamedParameterJdbcTemplate(this.dataSource);
-
-        // Execute the SQL
-        int rowsCreated = np.update(sql, paramMap);
-
-        if (rowsCreated != 1) {
-            throw new RuntimeException("Critical error in addUser():  I expected to create one database record, but did not.");
-        }
-
-        logger.debug("addUser() finished.");
-    }
-
-
-    /**
-     * @return a List of all Users (as a list of GetAllUsersDTO objects)
-     */
-    public Boolean validateLogin(ValidateUsersDTO validateUser) throws NoSuchAlgorithmException {
-        logger.debug("validateLogin() started.");
-
-        String sql = "SELECT password FROM ltfg.users\n" +
-                "WHERE user_name = ?;";
-
-        JdbcTemplate jt = new JdbcTemplate(this.dataSource);
-        SqlRowSet rs = jt.queryForRowSet(sql, validateUser.getUsername());
-        if (rs.next()) {
-            // I found the record in the database, now we check the password
-            boolean isMatch = PasswordEncrypter.comparePasswords(validateUser.getPassword(), rs.getString("password"));
-            return isMatch;
-        } else {
-            // I did not find this username in the database.
-            return false;
-        }
     }
 
 
@@ -204,31 +150,6 @@ public class ReportService {
 
 
     /**
-     * @return a List of all Reports (as a list of GetReportDTO objects)
-     */
-    public List<GetReportDTO> getAllReports() {
-        // Construct the SQL to get all reports
-        // NOTE:  We do a left join to get all records from reports
-        //        If a report record has null  for priority, then priority is null
-        //        If a report record has a priority it, then get the name for that priority
-        String sql = "select r.id, r.name, l.name as priority, \n" +
-                "       to_char(start_date, 'mm/dd/yyyy') as start_date, to_char(end_date, 'mm/dd/yyyy') as end_date \n" +
-                "from ltfg.reports r \n" +
-                "LEFT JOIN ltfg.lookup l on (r.priority = l.id) \n" +
-                "order by id";
-
-        // Use the rowMapper to convert the results into a list of GetReportDTO objects
-        BeanPropertyRowMapper<GetReportDTO> rowMapper = new BeanPropertyRowMapper<>(GetReportDTO.class);
-
-        // Execute the SQL and Convert the results into a list of GetReportDTO objects
-        JdbcTemplate jt = new JdbcTemplate(this.dataSource);
-        List<GetReportDTO> listOfReports = jt.query(sql, rowMapper);
-
-        // Return the list of GetReportDTO objects
-        return listOfReports;
-    }
-
-    /**
      * @param aReportId holds the ID that uniquely identifies thie report in the database
      * @return TRUE if the ID is found in the reports table.  False otherwise.
      */
@@ -240,23 +161,6 @@ public class ReportService {
         String sql = "select id from ltfg.reports where id=?";
         JdbcTemplate jt = new JdbcTemplate(this.dataSource);
         SqlRowSet rs = jt.queryForRowSet(sql, aReportId);
-        return rs.next();
-    }
-
-
-    /**
-     * @param aUsername holds the ID that uniquely identifies the user in the database
-     * @return TRUE if the username is found in the users table.  False otherwise.
-     */
-    public boolean doesUsernameExist(String aUsername) {
-        if (aUsername == null) {
-            return false;
-        }
-
-        String sql = "SELECT user_name FROM ltfg.users\n" +
-                "WHERE user_name = ?;";
-        JdbcTemplate jt = new JdbcTemplate(this.dataSource);
-        SqlRowSet rs = jt.queryForRowSet(sql, aUsername);
         return rs.next();
     }
 
@@ -285,6 +189,7 @@ public class ReportService {
         }
     }
 
+
     /**
      * @param aReportId holds the ID that uniquely identifies a report in the database
      * @return GetUpdateReportDTO object that holds information to show in the "Edit Report" page
@@ -309,6 +214,5 @@ public class ReportService {
         GetUpdateReportDTO dto = new GetUpdateReportDTO(aReportId, priority, reportName);
         return dto;
     }
-
 
 }

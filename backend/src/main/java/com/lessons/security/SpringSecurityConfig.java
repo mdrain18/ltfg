@@ -1,6 +1,5 @@
 package com.lessons.security;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.security.web.authentication.preauth.x509.X509Authenti
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-
 
 @Configuration
 @EnableWebSecurity
@@ -36,18 +34,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${ssl.security.mode:}")
     private String sslSecurityMode;
 
-
     @Value("${server.ssl.enabled}")
     private boolean sslEnabled;
-
 
     @Resource
     private MyAuthenticationManager myAuthenticationManager;
 
-
     @Resource
     private MyRequestHeaderAuthFilter requestHeaderAuthFilter;
-
 
     @Resource
     private SubjectX509PrincipalExtractor subjectX509PrincipalExtractor;
@@ -64,7 +58,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.debug("configureGlobal() started");
         super.configure(authenticationManagerBuilder);
 
-
         logger.debug("configureGlobal() finished");
     }
 
@@ -73,7 +66,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void init() {
         if (sslEnabled) {
             // Running in SSL mode so verify that sslSecurityMode is set to a valid value
-
 
             if (sslSecurityMode == null) {
                 throw new RuntimeException("Critical Error in SpringSecurityConfig:  server.ssl.enabled=TRUE but ssl.security.mode is not set.  The ssl.security.mode should be either 'header' or 'pki'");
@@ -100,14 +92,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity aHttpSecurity) throws Exception {
         logger.debug("configure() started.");
 
-
         if (sslEnabled) {
             // Running in https mode
             javax.servlet.Filter filter;
 
 
             if (sslSecurityMode.equalsIgnoreCase("pki")) {
-                // Running in "prod" mode with sslSecurityMode="pki" so, get the CN information from the user's x509 pki cert
+
                 logger.debug("In configure()  filter will be the x509 filter");
                 filter = x509Filter();
             } else {
@@ -115,7 +106,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 logger.debug("In configure()  filter will be MyRequestHeaderAuthFilter");
                 filter = requestHeaderAuthFilter;
             }
-
 
             aHttpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                     .and()
@@ -159,7 +149,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Bean
     public X509AuthenticationFilter x509Filter() {
-        // Setup a filter that extracts the principal from the cert
+        // Set up a filter that extracts the principal from the cert
         X509AuthenticationFilter x509Filter = new X509AuthenticationFilter();
         x509Filter.setContinueFilterChainOnUnsuccessfulAuthentication(false);
         x509Filter.setAuthenticationManager(myAuthenticationManager);
@@ -167,5 +157,3 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return x509Filter;
     }
 }
-
-

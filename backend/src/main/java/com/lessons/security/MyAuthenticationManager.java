@@ -45,15 +45,13 @@ public class MyAuthenticationManager implements AuthenticationManager {
         logger.debug("authenticate() started.   authentication={}", authentication);
 
         if (SecurityContextHolder.getContext().getAuthentication() != null) {
-            // Users is already authenticated, so do nothing
+            // Users are already authenticated, so do nothing
             return  SecurityContextHolder.getContext().getAuthentication();
         }
 
         UserDetails userDetails;
 
         if (! useHardcodedAuthenticatedPrincipal) {
-            // We are in production mode and we are getting information from headers
-            // -- So get the roles from a real source -- e.g., ActiveDirectory, Database, or BDP headers
             userDetails = loadUserDetailsFromRealSource(authentication);
         }
         else {
@@ -62,11 +60,12 @@ public class MyAuthenticationManager implements AuthenticationManager {
         }
 
         // Return an AuthenticationToken object
-        PreAuthenticatedAuthenticationToken preapproved = new PreAuthenticatedAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        preapproved.setAuthenticated(true);
-        logger.debug("authenticate() finished.  preapproved={}", preapproved.toString());
-        return preapproved;
+        PreAuthenticatedAuthenticationToken preApproved = new PreAuthenticatedAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+        preApproved.setAuthenticated(true);
+        logger.debug("authenticate() finished.  preApproved={}", preApproved.toString());
+        return preApproved;
     }
+
 
     private UserDetails loadUserDetailsFromRealSource(Authentication authentication) {
         logger.debug("loadUserDetailsFromRealSource() started authentication={}", authentication);
@@ -126,25 +125,24 @@ public class MyAuthenticationManager implements AuthenticationManager {
         }
     }
 
+
     /**
-     * header(X-BDP-User) holds -AUTH:FOUO;AUTH:U;AUTH:USA;GROUP:BDPUSERS;NAME:bdptest_u_fouo;ROLE:ANALYTIC_RUNNER;ROLE:BDP_ADMIN;ROLE:CITE_USER;ROLE:DATA_ADMIN;ROLE:KIBANA_ADMIN;ROLE:LOGS;ROLE:METRICS;ROLE:OWF_ADMIN;ROLE:OWF_USER;ROLE:UNITY_ADMIN<---
      * Pull every ROLE:role name entry out of the header and insert it into a list of GrantedAuthority objects
      * @return List of GrantedAuthority objects
      */
     private List<GrantedAuthority> getAuthoritiesFromHeaderValue() {
         List<GrantedAuthority> grantedRoles = new ArrayList<>();
 
-        // header(X-BDP-User) holds -AUTH:FOUO;AUTH:U;AUTH:USA;GROUP:BDPUSERS;NAME:bdptest_u_fouo;ROLE:ANALYTIC_RUNNER;ROLE:BDP_ADMIN;ROLE:CITE_USER;ROLE:DATA_ADMIN;ROLE:KIBANA_ADMIN;ROLE:LOGS;ROLE:METRICS;ROLE:OWF_ADMIN;ROLE:OWF_USER;ROLE:UNITY_ADMIN<---
-        String xbdpUserHeaderValue = httpServletRequest.getHeader("X-BDP-User");
-        logger.debug("In getAuthoritiesFromHeaderValue():  header-->{}<--", xbdpUserHeaderValue);
-        if (StringUtils.isEmpty(xbdpUserHeaderValue)) {
+        String userHeaderValue = httpServletRequest.getHeader("X-BDP-User");
+        logger.debug("In getAuthoritiesFromHeaderValue():  header-->{}<--", userHeaderValue);
+        if (StringUtils.isEmpty(userHeaderValue)) {
             // The header is empty -- so return an empty list
             logger.warn("Warning in getAuthoritiesFromHeaderValue():  The X-BDP-User header had nothing in it.  This should never happen.");
             return grantedRoles;
         }
 
         // Pull every string that starts with ROLE: and add it to the list
-        Matcher matcher = patMatchRole.matcher(xbdpUserHeaderValue);
+        Matcher matcher = patMatchRole.matcher(userHeaderValue);
         while (matcher.find()) {
             String roleName = matcher.group(1);
             logger.debug("Found a role:  roleName={}", roleName);
@@ -155,6 +153,7 @@ public class MyAuthenticationManager implements AuthenticationManager {
         logger.debug("getAuthoritiesFromHeaderValue() returns -->{}<--", StringUtils.join(grantedRoles, ","));
         return grantedRoles;
     }
+
 
     public UserDetails loadUserDetailsForDevelopment(Authentication authentication) {
         String userUID = "my_test_user";
