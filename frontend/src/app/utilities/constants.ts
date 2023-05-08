@@ -2,10 +2,10 @@ export enum Constants {
   FORBIDDEN_ROUTE              = "page/403",
   LOGIN_ROUTE                  = "page/login",
   REGISTRATION_ROUTE           = "page/registration",
+  VIEW_USER_PROFILE_ROUTE      = "page/viewReports",
   WELCOME_ROUTE                = "page/welcome",
   ADD_BUGREPORTS_ROUTE         = "page/reports/add2",
   REPORTS_GRID_VIEW_ROUTE      = "page/reports/grid",
-  VIEW_REPORTS_ROUTE           = "page/viewReports",
   DASHBOARD_ROUTE              = "page/dashboard",
 
   LONGVIEW_INTERNAL_NAV_REPORT = "page/longview/",        // This route has a required id

@@ -4,6 +4,7 @@ import {ThemeOptionDTO} from "../../models/theme-option-dto";
 import {Subscription} from "rxjs";
 import {ThemeService} from "../../services/theme.service";
 import {UserService} from "../../services/user.service";
+import {Constants} from "../../utilities/constants";
 import {UserIsLoggedOutDialogComponent} from "../../dialogs/user-is-logged-out-dialog/user-is-logged-out-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 
@@ -62,4 +63,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }  // end of userClickedLogout()
 
+  public get constants(): typeof Constants {
+    // Get a reference to the enumerated object
+    // -- This is needed so that the html page can use the enum class
+    return Constants;
+  }
 }

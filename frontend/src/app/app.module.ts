@@ -11,7 +11,6 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {WelcomeComponent} from './welcome/welcome.component';
-import {ViewReportsComponent} from './reports/view-reports/view-reports.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSidenavModule} from "@angular/material/sidenav";
@@ -113,11 +112,6 @@ const appRoutes: Routes = [
   {
     path: Constants.ADD_BUGREPORTS_ROUTE,
     component: AddBugreportComponent,
-    canActivate: [UserAcknowledgeGuard, PageGuard]
-  },
-  {
-    path: Constants.VIEW_REPORTS_ROUTE,
-    component: ViewReportsComponent,
     canActivate: [UserAcknowledgeGuard, PageGuard]
   },
   {
@@ -240,7 +234,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     WelcomeComponent,
-    ViewReportsComponent,
     NotFoundComponent,
     HeaderComponent,
     NavbarComponent,

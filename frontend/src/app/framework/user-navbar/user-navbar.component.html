@@ -5,8 +5,8 @@
       <mat-nav-list style="margin-top: 0; padding-top: 0">
 
         <!-- User Profile -->
-        <mat-list-item class="navItem" [routerLink]="constants.VIEW_REPORTS_ROUTE" routerLinkActive="active"
-                       *ngIf="userInfo.pageRoutes.get(constants.VIEW_REPORTS_ROUTE)">
+        <mat-list-item class="navItem" [routerLink]="constants.VIEW_USER_PROFILE_ROUTE" routerLinkActive="active"
+                       *ngIf="userInfo.pageRoutes.get(constants.VIEW_USER_PROFILE_ROUTE)">
           <a title="User Profile">User Profile</a>
           <div fxFlex fxLayoutAlign="end end">
             <a [routerLink]="'page/viewReports'" target="_blank">

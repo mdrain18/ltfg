@@ -9,7 +9,7 @@
     <div fxFlex fxLayoutAlign="left center" fxLayout="row" fxLayoutGap="10px">
 
       <!-- App Logo -->
-      <img class="appLogo clickable" [routerLink]="'/'" src="./assets/images/logo.png" height="47px" alt="Application Logo" title="Application Logo">
+      <img class="appLogo clickable" [routerLink]="constants.WELCOME_ROUTE" src="./assets/images/logo.png" height="47px" alt="Application Logo" title="Application Logo">
 
       <!-- App Navbar -->
       <a  class="button" (click)="toggleAppNavbar()">
@@ -23,7 +23,7 @@
     <div fxFlex  fxLayoutAlign="center center">
 
       <!-- Application Title -->
-      <h1 class="appLogo clickable" [routerLink]="'/'">
+      <h1 class="appLogo clickable" [routerLink]="constants.WELCOME_ROUTE">
         Legit Tools for Gaming
       </h1>
     </div>
