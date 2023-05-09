@@ -270,7 +270,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
       type: 'pie'
     },
     title: {
-      text: 'Pending Case Distribution'
+      text: 'Weapon Distribution'
     },
     subtitle: {
       text: ''
@@ -293,7 +293,9 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     },
     tooltip: {
-      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> or <b>{point.percentage:.1f}%</b> of total<br/>'
+      headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+      pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> ' +
+        'or <b>{point.percentage:.1f}%</b> of total<br/>'
     },
     series: [
       {
@@ -354,13 +356,13 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
   // Chart 2 is a bar chart2
   private chartOptions2: any = {
     chart: {
-      type: 'column'   // Uuse type:'bar' for horizontal chart.  Use type:'column' for vertical bar chart
+      type: 'column'   // Use type:'bar' for horizontal chart.  Use type:'column' for vertical bar chart
     },
     credits: {
       enabled: false        // Hide the highcharts.com label
     },
     title: {
-      text: 'Case Timeliness of Closes Cases (Days)'
+      text: 'Time it Takes for Players to Reach Max Level '
     },
     xAxis: {
       categories: ['0-30', '31-60', '61-90', '91-120', '121-150', '151-180', '181-210', '211-240', '241-270', '271-300', '301+']
@@ -368,7 +370,7 @@ export class WelcomeComponent implements OnInit, OnDestroy, AfterViewInit {
     yAxis: {
       min: 0,
       title: {
-        text: 'Number of Cases'
+        text: 'Number of Players'
       }
     },
     legend: {
